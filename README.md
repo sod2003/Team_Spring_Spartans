@@ -24,8 +24,8 @@ The name of our application is Spartan Wireless, and it is a full-stack web appl
 
 ## Credits
 Team Members and Roles:
-Sean O' Dowd - Team leader
-Matthew Simmons - Devops
-Carlos Morales - Frontend
-Samuel Park - Logistics
+Sean O' Dowd - Team leader & Backend
+Matthew Simmons - Devops & Backend
+Carlos Morales - Frontend & Frontend
+Samuel Park - Logistics * Frontend
 
