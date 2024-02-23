@@ -32,8 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-=======
->>>>>>> b966a06eec2251536caa2af05331788dbe72adb3
 # Compiled class file
 *.class
 
