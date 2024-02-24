@@ -39,6 +39,6 @@ public class Customer {
         inverseJoinColumns=@JoinColumn(name="phone_plan_id", referencedColumnName="phone_plan_id"))
     private List<PhonePlan> phonePlans;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "primaryKey.customer")
     private List<PhoneLine> lines;
 }

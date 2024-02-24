@@ -1,36 +1,96 @@
 package com.skillstorm.spartanwireless.models;
 
+import jakarta.persistence.AssociationOverride;
+import jakarta.persistence.AssociationOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Transient;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "phone_line")
-@IdClass(PhoneLineId.class)
+@AssociationOverrides({
+    @AssociationOverride(name = "primaryKey.customer",
+        joinColumns = @JoinColumn(name = "cust_id")),
+    @AssociationOverride(name = "primaryKey.device",
+        joinColumns = @JoinColumn(name = "device_id")) })
 public class PhoneLine {
 
-    @Id
-    private Long customerId;
-
-    @Id
-    private Long deviceId;
+    private PhoneLineId primaryKey = new PhoneLineId();
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name = "cust_id", referencedColumnName = "cust_id")
-    private Customer customer;
+    @EmbeddedId
+    public PhoneLineId getPrimaryKey() {
+        return primaryKey;
+    }
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name = "device_id", referencedColumnName = "device_id")
-    private Device device;
+    public void setPrimaryKey(PhoneLineId primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    @Transient
+    public Customer getCustomer() {
+        return getPrimaryKey().getCustomer();
+    }
+ 
+    public void setCustomer(Customer customer) {
+        getPrimaryKey().setCustomer(customer);
+    }
+ 
+    @Transient
+    public Device getDevice() {
+        return getPrimaryKey().getDevice();
+    }
+ 
+    public void setDevice(Device device) {
+        getPrimaryKey().setDevice(device);
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((primaryKey == null) ? 0 : primaryKey.hashCode());
+        result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PhoneLine other = (PhoneLine) obj;
+        if (primaryKey == null) {
+            if (other.primaryKey != null)
+                return false;
+        } else if (!primaryKey.equals(other.primaryKey))
+            return false;
+        if (phoneNumber == null) {
+            if (other.phoneNumber != null)
+                return false;
+        } else if (!phoneNumber.equals(other.phoneNumber))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneLine [primaryKey=" + primaryKey + ", phoneNumber=" + phoneNumber + "]";
+    }
 }
