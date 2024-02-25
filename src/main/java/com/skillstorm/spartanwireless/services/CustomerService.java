@@ -1,13 +1,16 @@
 package com.skillstorm.spartanwireless.services;
 
-import com.skillstorm.spartanwireless.dtos.LoginRequestDto;
-import com.skillstorm.spartanwireless.dtos.LoginResponseDto;
-import com.skillstorm.spartanwireless.dtos.RegisterRequestDto;
-import com.skillstorm.spartanwireless.dtos.RegisterResponseDto;
+import java.util.List;
+
+import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
+import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 
 public interface CustomerService {
 
-    RegisterResponseDto register(RegisterRequestDto registerRequestDto);
-    LoginResponseDto login(LoginRequestDto loginRequestDto);
+    CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto);
+    List<CustomerResponseDto> getAllCustomers();
+    CustomerResponseDto getCustomerById(Long custId);
+    CustomerResponseDto updateCustomer(Long custId, CustomerRequestDto customerRequestDto);
+    void deleteCustomerById(Long custId);
     
 }
