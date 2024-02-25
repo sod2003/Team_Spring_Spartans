@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class PhonePlanRequestDto {
 
+    private Long phonePlanId;
     private int phoneLines;
     private int dataLimit;
 }

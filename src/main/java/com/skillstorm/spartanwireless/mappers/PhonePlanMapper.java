@@ -9,6 +9,7 @@ public class PhonePlanMapper {
     public static PhonePlan mapToPhonePlan(PhonePlanRequestDto phonePlanRequestDto) {
         return PhonePlan
             .builder()
+            .phonePlanId(phonePlanRequestDto.getPhonePlanId())
             .phoneLines(phonePlanRequestDto.getPhoneLines())
             .dataLimit(phonePlanRequestDto.getDataLimit())
             .build();
