@@ -32,6 +32,6 @@ public class Device {
     @Column(name = "price")
     private double price;
 
-    @OneToMany(mappedBy = "primaryKey.device")
+    @OneToMany(mappedBy = "device")
     private List<PhoneLine> phoneLines;
 }
