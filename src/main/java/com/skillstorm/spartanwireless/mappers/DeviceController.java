@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,16 +35,17 @@ public class DeviceController {
         return new ResponseEntity<>(deviceService.getAllDevices(), HttpStatus.OK);
     }
 
-    @GetMapping("{/deviceId}")
+    @GetMapping("/{deviceId}")
     public ResponseEntity<DeviceResponseDto> getDeviceById(@PathVariable Long deviceId) {
        return new ResponseEntity<>(deviceService.getDeviceById(deviceId), HttpStatus.OK); 
     }
 
-    @PutMapping("{/deviceId}")
+    @PutMapping("/{deviceId}")
     public ResponseEntity<DeviceResponseDto> updateDevice(@PathVariable Long deviceId, @RequestBody DeviceRequestDto deviceRequestDto) {
         return new ResponseEntity<>(deviceService.updateDevice(deviceId, deviceRequestDto), HttpStatus.OK);
     }
     
+    @DeleteMapping("/{deviceId}")
     public void deleteDevice(@PathVariable Long deviceId) {
         deviceService.deleteDevice(deviceId);
     }
