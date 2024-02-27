@@ -1,4 +1,4 @@
-package com.skillstorm.spartanwireless.mappers;
+package com.skillstorm.spartanwireless.controllers;
 
 import java.util.List;
 
