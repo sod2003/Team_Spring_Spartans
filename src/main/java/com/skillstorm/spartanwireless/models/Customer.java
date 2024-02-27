@@ -37,6 +37,9 @@ public class Customer {
     
     @Column(name = "email")
     private String email;
+
+    @Column(name = "archived")
+    private boolean isArchived;
     
     @ManyToMany
     @JoinTable(

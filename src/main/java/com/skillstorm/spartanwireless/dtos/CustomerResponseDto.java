@@ -18,5 +18,6 @@ public class CustomerResponseDto {
     private String address;
     private String email;
     private List<PhonePlan> phonePlans;
+    private boolean isArchived;
     private List<PhoneLine> lines;
 }
