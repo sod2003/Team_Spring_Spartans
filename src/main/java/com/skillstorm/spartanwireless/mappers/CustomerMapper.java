@@ -23,6 +23,7 @@ public class CustomerMapper {
             .address(customer.getAddress())
             .email(customer.getEmail())
             .phonePlans(customer.getPhonePlans())
+            .isArchived(customer.isArchived())
             .lines(customer.getLines())
             .build();
     }
