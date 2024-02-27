@@ -15,6 +15,7 @@ import lombok.Setter;
 public class CustomerResponseDto {
 
     private Long custId;
+    private String name;
     private String address;
     private String email;
     private List<PhonePlan> phonePlans;

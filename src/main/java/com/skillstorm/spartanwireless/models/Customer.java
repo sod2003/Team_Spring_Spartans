@@ -32,6 +32,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long custId;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "address")
     private String address;
     
