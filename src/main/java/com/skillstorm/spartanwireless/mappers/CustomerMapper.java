@@ -9,6 +9,7 @@ public class CustomerMapper {
     public static Customer mapToCustomer( CustomerRequestDto customerRequestDto) {
         return Customer
             .builder()
+            .name(customerRequestDto.getName())
             .address(customerRequestDto.getAddress())
             .email(customerRequestDto.getEmail())
             .build();
@@ -18,6 +19,7 @@ public class CustomerMapper {
         return CustomerResponseDto
             .builder()
             .custId(customer.getCustId())
+            .name(customer.getName())
             .address(customer.getAddress())
             .email(customer.getEmail())
             .phonePlans(customer.getPhonePlans())
