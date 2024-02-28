@@ -1,7 +1,5 @@
 package com.skillstorm.spartanwireless.services.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -14,55 +12,44 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 
-import com.skillstorm.spartanwireless.models.Customer;
-import com.skillstorm.spartanwireless.repositories.CustomerRepository;
-import com.skillstorm.spartanwireless.services.CustomerService;
+import com.skillstorm.spartanwireless.models.Device;
+import com.skillstorm.spartanwireless.repositories.DeviceRepository;
+import com.skillstorm.spartanwireless.services.DeviceService;
 
-public class TestCustomerServiceImpl {
+public class TestDeviceServiceImpl {
 
-    CustomerService cs;
-    List<Customer> customers;
+    DeviceService ds;
+    List<Device> devices;
 
     @BeforeAll
     public void init() {
-        // TODO Create a customers list
-        cs = new CustomerServiceImpl(new TestCustomerRepo());
+        // TODO Create a devices list
+        ds = new DeviceServiceImpl(new TestDeviceRepo());
+    }
+
+    @Test
+    public void TestCreateDevice() {
+        // TODO Create a test for Service's createDevice method
+    }
+
+    @Test
+    public void TestGetAllDevices() {
+        // TODO Create a test for Service's getAllDevices method
+    }
+
+    @Test
+    public void TestGetDeviceById() {
+        // TODO Create a test for Service's getDeviceById method
+    }
+
+    @Test
+    public void TestUpdateDevice() {
+        // TODO Create a test for Service's updateDevice method
     }
     
-    @Test
-    public void TestCreateCustomer() {
-        cs.createCustomer(null); // TODO Implement createCustomer Test.
-        assertEquals(getClass(), getClass());
-    }
-
-    @Test
-    public void TestGetAllCustomers() {
-        // TODO Create a test for Service's getAllCustomers method
-    }
-
-    @Test
-    public void TestGetAllActiveCustomers() {
-        // TODO Create a test for Service's getAllActiveCustomers method
-    }
-
-    @Test
-    public void TestGetCustomerById() {
-        // TODO Create test for Service's getCustomerById method
-    }
-    
-    @Test
-    public void TestUpdateCustomer() {
-        // TODO Create test for Repo's updateCustomer method
-    }
-
-    @Test
-    public void TestDeleteCustomerById() {
-        // TODO Create test for Service's deleteCustomerById method
-        // Remember to use isArchived functionality
-    }
 }
 
-class TestCustomerRepo implements CustomerRepository {
+class TestDeviceRepo implements DeviceRepository {
 
     @Override
     public void flush() {
@@ -70,17 +57,17 @@ class TestCustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public <S extends Customer> S saveAndFlush(S entity) {
+    public <S extends Device> S saveAndFlush(S entity) {
         throw new UnsupportedOperationException("Unimplemented method 'saveAndFlush'");
     }
 
     @Override
-    public <S extends Customer> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Device> List<S> saveAllAndFlush(Iterable<S> entities) {
         throw new UnsupportedOperationException("Unimplemented method 'saveAllAndFlush'");
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<Customer> entities) {
+    public void deleteAllInBatch(Iterable<Device> entities) {
         throw new UnsupportedOperationException("Unimplemented method 'deleteAllInBatch'");
     }
 
@@ -95,56 +82,55 @@ class TestCustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public Customer getOne(Long id) {
+    public Device getOne(Long id) {
         throw new UnsupportedOperationException("Unimplemented method 'getOne'");
     }
 
     @Override
-    public Customer getById(Long id) {
+    public Device getById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getById'");
     }
 
     @Override
-    public Customer getReferenceById(Long id) {
+    public Device getReferenceById(Long id) {
         throw new UnsupportedOperationException("Unimplemented method 'getReferenceById'");
     }
 
     @Override
-    public <S extends Customer> List<S> findAll(Example<S> example) {
+    public <S extends Device> List<S> findAll(Example<S> example) {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    public <S extends Customer> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Device> List<S> findAll(Example<S> example, Sort sort) {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    public <S extends Customer> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Device> List<S> saveAll(Iterable<S> entities) {
         throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
     }
 
     @Override
-    public List<Customer> findAll() {
+    public List<Device> findAll() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    public List<Customer> findAllById(Iterable<Long> ids) {
+    public List<Device> findAllById(Iterable<Long> ids) {
         throw new UnsupportedOperationException("Unimplemented method 'findAllById'");
     }
 
     @Override
-    public <S extends Customer> S save(S entity) {
-        // similar to customerRepository.save(mapToCustomer(customerRequestDto))
+    public <S extends Device> S save(S entity) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
+    public Optional<Device> findById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
@@ -161,13 +147,11 @@ class TestCustomerRepo implements CustomerRepository {
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
 
     @Override
-    public void delete(Customer entity) {
-        // TODO Auto-generated method stub
+    public void delete(Device entity) {
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
@@ -177,7 +161,7 @@ class TestCustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Customer> entities) {
+    public void deleteAll(Iterable<? extends Device> entities) {
         throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
     }
 
@@ -187,38 +171,38 @@ class TestCustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public List<Customer> findAll(Sort sort) {
+    public List<Device> findAll(Sort sort) {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    public Page<Customer> findAll(Pageable pageable) {
+    public Page<Device> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    public <S extends Customer> Optional<S> findOne(Example<S> example) {
+    public <S extends Device> Optional<S> findOne(Example<S> example) {
         throw new UnsupportedOperationException("Unimplemented method 'findOne'");
     }
 
     @Override
-    public <S extends Customer> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Device> Page<S> findAll(Example<S> example, Pageable pageable) {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
     @Override
-    public <S extends Customer> long count(Example<S> example) {
+    public <S extends Device> long count(Example<S> example) {
         throw new UnsupportedOperationException("Unimplemented method 'count'");
     }
 
     @Override
-    public <S extends Customer> boolean exists(Example<S> example) {
+    public <S extends Device> boolean exists(Example<S> example) {
         throw new UnsupportedOperationException("Unimplemented method 'exists'");
     }
 
     @Override
-    public <S extends Customer, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Device, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
         throw new UnsupportedOperationException("Unimplemented method 'findBy'");
     }
-    
+
 }
