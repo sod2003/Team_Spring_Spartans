@@ -19,34 +19,39 @@ import com.skillstorm.spartanwireless.dtos.PhonePlanResponseDto;
 import com.skillstorm.spartanwireless.services.PhonePlanService;
 
 @RestController
-@RequestMapping("/phone_plans")
+@RequestMapping("/customers/{custId}/phone_plans")
 public class PhonePlanController {
     
     @Autowired
     private PhonePlanService phonePlanService;
 
-    @PostMapping
-    public ResponseEntity<PhonePlanResponseDto> createPhonePlan(@RequestBody PhonePlanRequestDto phonePlanRequestDto) {
-        return new ResponseEntity<>(phonePlanService.createPhonePlan(phonePlanRequestDto), HttpStatus.CREATED);
+    @PostMapping("/{phonePlanId}")
+    public ResponseEntity<PhonePlanResponseDto> createPhonePlan(@PathVariable Long custId, @PathVariable Long phonePlanId) {
+        return new ResponseEntity<>(phonePlanService.createPhonePlan(custId, phonePlanId), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<PhonePlanResponseDto>> getAllPhonePlans() {
-        return new ResponseEntity<>(phonePlanService.getAllPhonePlans(), HttpStatus.OK);
+    public ResponseEntity<List<PhonePlanResponseDto>> getAllPhonePlansByCustId(@PathVariable Long custId) {
+        return new ResponseEntity<>(phonePlanService.getAllPhonePlansByCustId(custId), HttpStatus.OK);
     }
 
     @GetMapping("/{phonePlanId}")
-    public ResponseEntity<PhonePlanResponseDto> getPhonePlanById(@PathVariable Long phonePlanId) {
-        return new ResponseEntity<>(phonePlanService.getPhonePlanById(phonePlanId), HttpStatus.OK);
+    public ResponseEntity<PhonePlanResponseDto> getPhonePlanById(@PathVariable Long custId, @PathVariable Long phonePlanId) {
+        return new ResponseEntity<>(phonePlanService.getPhonePlanById(custId, phonePlanId), HttpStatus.OK);
     }
 
+    /*
+    * The update method is obsolete because the phone plans are produced by Spartan Wireless,
+    * and we are not providing custom phone plans at this moment in time.
+    * The only updates made can be either creating or deleting a plan. 
     @PutMapping("/{phonePlanId}")
     public ResponseEntity<PhonePlanResponseDto> updatePhonePlan(@PathVariable Long phonePlanId, @RequestBody PhonePlanRequestDto phonePlanRequestDto) {
         return new ResponseEntity<>(phonePlanService.updatePhonePlan(phonePlanId, phonePlanRequestDto), HttpStatus.OK);
     }
+    */
 
     @DeleteMapping("/{phonePlanId}")
-    public void deletePhonePlan(@PathVariable Long phonePlanId) {
-        phonePlanService.deletePhonePlan(phonePlanId);
+    public void deletePhonePlan(@PathVariable Long custId, @PathVariable Long phonePlanId) {
+        phonePlanService.deletePhonePlan(custId, phonePlanId);
     }
 }
