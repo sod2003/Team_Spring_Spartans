@@ -21,6 +21,10 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
 
+    public CustomerServiceImpl(CustomerRepository cr) {
+        customerRepository = cr;
+    }
+
     @Override
     public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
         return mapToCustomerResponseDto(customerRepository.save(mapToCustomer(customerRequestDto)));
