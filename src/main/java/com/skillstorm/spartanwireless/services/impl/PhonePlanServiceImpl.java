@@ -22,9 +22,15 @@ public class PhonePlanServiceImpl implements PhonePlanService {
 
     @Autowired
     private PhonePlanRepository phonePlanRepository;
+
     @Autowired
     private CustomerRepository customerRepository;
     
+    public PhonePlanServiceImpl(PhonePlanRepository ppr, CustomerRepository cs) {
+        phonePlanRepository = ppr;
+        customerRepository = cs;
+    }
+
     @Override
     public PhonePlanResponseDto createPhonePlan(Long custId, Long phonePlanId) {
         PhonePlan phonePlan = phonePlanRepository.findById(phonePlanId).get();
