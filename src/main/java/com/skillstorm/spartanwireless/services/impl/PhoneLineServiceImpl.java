@@ -21,6 +21,10 @@ public class PhoneLineServiceImpl implements PhoneLineService {
     @Autowired
     private PhoneLineRepository phoneLineRepository;
 
+    public PhoneLineServiceImpl(PhoneLineRepository plr) {
+        phoneLineRepository = plr;
+    }
+
     @Override
     public PhoneLineResponseDto createPhoneLine(PhoneLineRequestDto phoneLineRequestDto) {
         return mapToPhoneLineResponseDto(phoneLineRepository.save(mapToPhoneLine(phoneLineRequestDto)));

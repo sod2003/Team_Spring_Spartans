@@ -22,6 +22,10 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
 
+    public DeviceServiceImpl(DeviceRepository dr) {
+        deviceRepository = dr;
+    }
+
     @Override
     public DeviceResponseDto createDevice(DeviceRequestDto deviceRequestDto) {
         return mapToDeviceResponseDto(deviceRepository.save(mapToDevice(deviceRequestDto)));
