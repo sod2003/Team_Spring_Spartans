@@ -22,7 +22,6 @@ public class PhonePlanMapper {
             .phoneLines(phonePlan.getPhoneLines())
             .dataLimit(phonePlan.getDataLimit())
             .cost(phonePlan.getCost())
-            .customers(phonePlan.getCustomers())
             .build();
     }
 }
