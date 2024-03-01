@@ -10,6 +10,6 @@ public interface PhoneLineService {
     PhoneLineResponseDto createPhoneLine(Long custId, PhoneLineRequestDto phoneLineRequestDto);
     List<PhoneLineResponseDto> getAllPhoneLines(Long custId);
     PhoneLineResponseDto getPhoneLineById(String phoneNumber);
-    PhoneLineResponseDto updatePhoneLine(String phoneNumber, PhoneLineRequestDto phoneLineRequestDto);
+    // (Comment in Controller) PhoneLineResponseDto updatePhoneLine(String phoneNumber, PhoneLineRequestDto phoneLineRequestDto);
     void deletePhoneLine(String phoneNumber);
 }

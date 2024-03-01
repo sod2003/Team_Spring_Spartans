@@ -44,12 +44,15 @@ public class PhoneLineServiceImpl implements PhoneLineService {
         return mapToPhoneLineResponseDto(phoneLineRepository.findById(phoneNumber).get());
     }
 
+    /*
+    (Comment in Controller)
     @Override
     public PhoneLineResponseDto updatePhoneLine(String phoneNumber, PhoneLineRequestDto phoneLineRequestDto) {
         PhoneLine phoneLine = phoneLineRepository.findById(phoneNumber).get();
         phoneLine.setPhoneNumber(phoneLineRequestDto.getPhoneNumber());
         return mapToPhoneLineResponseDto(phoneLineRepository.save(phoneLine));
     }
+    */
 
     @Override
     public void deletePhoneLine(String phoneNumber) {
