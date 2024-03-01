@@ -19,7 +19,7 @@ import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
 import com.skillstorm.spartanwireless.services.PhoneLineService;
 
 @RestController
-@RequestMapping("customer/{custId}/lines")
+@RequestMapping("customers/{custId}/lines")
 public class PhoneLineController {
     
     @Autowired
@@ -31,8 +31,8 @@ public class PhoneLineController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PhoneLineResponseDto>> getAllPhoneLines() {
-        return new ResponseEntity<>(phoneLineService.getAllPhoneLines(), HttpStatus.OK);
+    public ResponseEntity<List<PhoneLineResponseDto>> getAllPhoneLines(@PathVariable Long custId) {
+        return new ResponseEntity<>(phoneLineService.getAllPhoneLines(custId), HttpStatus.OK);
     }
 
     @GetMapping("/{phoneNumber}")
@@ -46,7 +46,7 @@ public class PhoneLineController {
     }
 
     @DeleteMapping("/{phoneNumber}")
-    public void deleteById(@PathVariable String phoneNumber) {
+    public void deleteById  (@PathVariable String phoneNumber) {
         phoneLineService.deletePhoneLine(phoneNumber);
     }
 }

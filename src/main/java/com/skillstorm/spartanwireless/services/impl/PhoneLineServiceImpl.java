@@ -34,8 +34,9 @@ public class PhoneLineServiceImpl implements PhoneLineService {
     }
 
     @Override
-    public List<PhoneLineResponseDto> getAllPhoneLines() {
-        return phoneLineRepository.findAll().stream().map((phoneLine) -> mapToPhoneLineResponseDto(phoneLine)).collect(Collectors.toList());
+    public List<PhoneLineResponseDto> getAllPhoneLines(Long custId) {
+        Customer customer = customerRepository.findById(custId).get();
+        return phoneLineRepository.findAll(customer).stream().map((phoneLine) -> mapToPhoneLineResponseDto(phoneLine)).collect(Collectors.toList());
     }
 
     @Override
