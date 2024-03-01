@@ -1,5 +1,6 @@
 package com.skillstorm.spartanwireless.services.impl;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -79,7 +81,8 @@ public class TestCustomerServiceImpl {
 
     @Test
     public void CustomerService_DeleteCustomer_ReturnVoid() {
-        customerServiceImpl.deleteCustomerById(custId1);
-        verify(customerRepository, times(1)).deleteById(custId1);
+        when(customerRepository.findById(custId1)).thenReturn(Optional.ofNullable(customer1));
+        String reponse = customerServiceImpl.deleteCustomerById(custId1);
+        Assertions.assertThat(reponse).isEqualTo("archived");
     }
 }

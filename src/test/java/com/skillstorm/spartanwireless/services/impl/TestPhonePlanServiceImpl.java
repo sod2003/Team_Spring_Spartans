@@ -15,7 +15,6 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import com.skillstorm.spartanwireless.dtos.PhonePlanRequestDto;
 import com.skillstorm.spartanwireless.models.PhonePlan;
 import com.skillstorm.spartanwireless.repositories.PhonePlanRepository;
-import com.skillstorm.spartanwireless.repositories.TestCustomerRepo;
 import com.skillstorm.spartanwireless.services.PhonePlanService;
 
 public class TestPhonePlanServiceImpl {
