@@ -22,9 +22,6 @@ public class CustomerMapper {
             .name(customer.getName())
             .address(customer.getAddress())
             .email(customer.getEmail())
-            .phonePlans(customer.getPhonePlans())
-            .isArchived(customer.isArchived())
-            .lines(customer.getLines())
             .build();
     }
 }
