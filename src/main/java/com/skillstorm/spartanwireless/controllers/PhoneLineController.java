@@ -40,10 +40,16 @@ public class PhoneLineController {
         return new ResponseEntity<>(phoneLineService.getPhoneLineById(phoneNumber), HttpStatus.OK);
     }
 
+    /*
+    At this time, our website will not support updating phone numbers. Phone number 
+    updates will be limited to creating and delete phone numbers from customers. 
+    Changing phone number values is not supported because the phone number is the 
+    primary key of its own entity. We will consider adding this in the future.
     @PutMapping("/{phoneNumber}")
     public ResponseEntity<PhoneLineResponseDto> updatePhoneLine(@PathVariable String phoneNumber, @RequestBody PhoneLineRequestDto phoneLineRequestDto) {
         return new ResponseEntity<>(phoneLineService.updatePhoneLine(phoneNumber, phoneLineRequestDto), HttpStatus.OK);
     }
+    */
 
     @DeleteMapping("/{phoneNumber}")
     public void deleteById  (@PathVariable String phoneNumber) {
