@@ -55,8 +55,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void deleteCustomerById(Long custId) {
-        customerRepository.deleteById(custId);
+    public String deleteCustomerById(Long custId) {
+        Customer customer = customerRepository.findById(custId).get();
+        customer.setArchived(true);
+        customerRepository.save(customer);
+        return "archived";
     }
 
     
