@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.skillstorm.spartanwireless.dtos.PhoneLineRequestDto;
 import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
+import com.skillstorm.spartanwireless.models.Customer;
 import com.skillstorm.spartanwireless.models.PhoneLine;
+import com.skillstorm.spartanwireless.repositories.CustomerRepository;
 import com.skillstorm.spartanwireless.repositories.PhoneLineRepository;
 import com.skillstorm.spartanwireless.services.PhoneLineService;
 
@@ -20,14 +22,15 @@ public class PhoneLineServiceImpl implements PhoneLineService {
 
     @Autowired
     private PhoneLineRepository phoneLineRepository;
-
-    public PhoneLineServiceImpl(PhoneLineRepository plr) {
-        phoneLineRepository = plr;
-    }
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
-    public PhoneLineResponseDto createPhoneLine(PhoneLineRequestDto phoneLineRequestDto) {
-        return mapToPhoneLineResponseDto(phoneLineRepository.save(mapToPhoneLine(phoneLineRequestDto)));
+    public PhoneLineResponseDto createPhoneLine(Long custId, PhoneLineRequestDto phoneLineRequestDto) {
+        Customer customer = customerRepository.findById(custId).get();
+        PhoneLine phoneLine = mapToPhoneLine(phoneLineRequestDto);
+        phoneLine.setCustomer(customer);
+        return mapToPhoneLineResponseDto(phoneLineRepository.save(phoneLine));
     }
 
     @Override
