@@ -19,15 +19,15 @@ import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
 import com.skillstorm.spartanwireless.services.PhoneLineService;
 
 @RestController
-@RequestMapping("/lines")
+@RequestMapping("customer/{custId}/lines")
 public class PhoneLineController {
     
     @Autowired
     private PhoneLineService phoneLineService;
 
     @PostMapping
-    public ResponseEntity<PhoneLineResponseDto> createPhoneLine(@RequestBody PhoneLineRequestDto phoneLineRequestDto) {
-        return new ResponseEntity<>(phoneLineService.createPhoneLine(phoneLineRequestDto), HttpStatus.CREATED);
+    public ResponseEntity<PhoneLineResponseDto> createPhoneLine(@PathVariable Long custId, @RequestBody PhoneLineRequestDto phoneLineRequestDto) {
+        return new ResponseEntity<>(phoneLineService.createPhoneLine(custId, phoneLineRequestDto), HttpStatus.CREATED);
     }
 
     @GetMapping
