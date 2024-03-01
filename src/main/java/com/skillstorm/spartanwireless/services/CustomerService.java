@@ -12,6 +12,6 @@ public interface CustomerService {
     List<CustomerResponseDto> getAllActiveCustomers();
     CustomerResponseDto getCustomerById(Long custId);
     CustomerResponseDto updateCustomer(Long custId, CustomerRequestDto customerRequestDto);
-    void deleteCustomerById(Long custId);
+    String deleteCustomerById(Long custId);
     
 }
