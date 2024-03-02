@@ -8,4 +8,6 @@ import lombok.Setter;
 public class PhoneLineRequestDto {
     
     private String phoneNumber;
+    private Long deviceId;
+
 }

@@ -27,6 +27,7 @@ public class PhoneLine {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cust_id")
     private Customer customer;
