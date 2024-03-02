@@ -52,7 +52,7 @@ public class PhoneLineController {
     */
 
     @DeleteMapping("/{phoneNumber}")
-    public void deleteById  (@PathVariable String phoneNumber) {
+    public void deleteById(@PathVariable String phoneNumber) {
         phoneLineService.deletePhoneLine(phoneNumber);
     }
 }
