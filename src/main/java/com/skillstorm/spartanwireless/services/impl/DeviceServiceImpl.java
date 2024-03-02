@@ -46,6 +46,7 @@ public class DeviceServiceImpl implements DeviceService {
         Device device = deviceRepository.findById(deviceId).get();
         device.setName(deviceRequestDto.getName());
         device.setBrand(deviceRequestDto.getBrand());
+        device.setPrice(deviceRequestDto.getPrice());
         return mapToDeviceResponseDto(deviceRepository.save(device));
     }
 

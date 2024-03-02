@@ -1,5 +1,7 @@
 package com.skillstorm.spartanwireless.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +31,7 @@ public class PhoneLine {
     @JoinColumn(name = "cust_id")
     private Customer customer;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "device_id")
     private Device device;

@@ -13,4 +13,5 @@ import lombok.Setter;
 public class PhoneLineResponseDto {
     
     private String phoneNumber;
+    private Device device;
 }

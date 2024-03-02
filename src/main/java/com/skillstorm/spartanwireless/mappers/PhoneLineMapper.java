@@ -17,6 +17,7 @@ public class PhoneLineMapper {
         return PhoneLineResponseDto
             .builder()
             .phoneNumber(phoneLine.getPhoneNumber())
+            .device(phoneLine.getDevice())
             .build();
     }
 }
