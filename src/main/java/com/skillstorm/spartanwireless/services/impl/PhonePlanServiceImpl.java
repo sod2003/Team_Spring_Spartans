@@ -26,11 +26,11 @@ public class PhonePlanServiceImpl implements PhonePlanService {
     @Autowired
     private CustomerRepository customerRepository;
     
-    public PhonePlanServiceImpl(PhonePlanRepository ppr, CustomerRepository cs) {
+    public PhonePlanServiceImpl(PhonePlanRepository ppr) {
         phonePlanRepository = ppr;
-        customerRepository = cs;
     }
 
+    // TODO Move this logic into a CustomerPlansService
     @Override
     public PhonePlanResponseDto createPhonePlan(Long custId, Long phonePlanId) {
         PhonePlan phonePlan = phonePlanRepository.findById(phonePlanId).get();
@@ -46,10 +46,23 @@ public class PhonePlanServiceImpl implements PhonePlanService {
     }
 
     @Override
+    public List<PhonePlanResponseDto> getAllPhonePlans() {
+        return phonePlanRepository.findAll().stream().map((phonePlan) -> mapToPhonePlanResponseDto(phonePlan)).collect(Collectors.toList());
+    }
+
+    @Override
+    public PhonePlanResponseDto getPhonePlanById(Long phonePlanId) {
+        PhonePlanResponseDto response = phonePlanRepository.findById(phonePlanId).stream().map((phonePlan) -> mapToPhonePlanResponseDto(phonePlan)).findFirst().orElse(null);
+        return response;
+    }
+
+    // TODO Move this logic into a CustomerPlansService
+    @Override
     public List<PhonePlanResponseDto> getAllPhonePlansByCustId(Long custId) {
         return phonePlanRepository.findAll(custId).stream().map((phonePlan) -> mapToPhonePlanResponseDto(phonePlan)).collect(Collectors.toList());
     }
 
+    // TODO Move this logic into a CustomerPlansService 
     @Override
     public PhonePlanResponseDto getPhonePlanById(Long custId, Long phonePlanId) {
         Customer customer = customerRepository.findById(custId).get();
@@ -71,6 +84,7 @@ public class PhonePlanServiceImpl implements PhonePlanService {
     }
     */
 
+    // TODO Move this Logic into a CustomerPlansService
     @Override
     public void deletePhonePlan(Long custId, Long phonePlanId) {
         Customer customer = customerRepository.findById(custId).get();
