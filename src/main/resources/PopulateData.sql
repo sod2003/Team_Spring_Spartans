@@ -12,12 +12,12 @@ TRUNCATE spartan.device;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- Populating tables with fresh test data
-INSERT INTO spartan.customer (address, email)
+INSERT INTO spartan.customer (name, address, email, archived)
 VALUES
-("123 Peachetree Street", "sean@spartanwireless.com"),
-("456 Peachtree Road", "matt@spartanwireless.com"), 
-("789 Peachtree Avenue", "carlos@spartanwireless.com"),
-("1010 Piedmont Street", "sam@spartanwireless.com");
+("Sean", "123 Peachetree Street", "sean@spartanwireless.com", 0),
+("Matt", "456 Peachtree Road", "matt@spartanwireless.com", 0), 
+("Carlos", "789 Peachtree Avenue", "carlos@spartanwireless.com", 0),
+("Sam", "1010 Piedmont Street", "sam@spartanwireless.com", 0);
 
 INSERT INTO spartan.phone_plan (cost, data_limit, phone_lines, phone_plan_id)
 VALUES
