@@ -21,6 +21,7 @@ import com.skillstorm.spartanwireless.services.DeviceService;
 
 /*Testing Branch */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
@@ -33,7 +34,6 @@ public class DeviceController {
         return new ResponseEntity<>(deviceService.createDevice(deviceRequestDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin
     @GetMapping
     public ResponseEntity<List<DeviceResponseDto>> getAllDevices() {
         return new ResponseEntity<>(deviceService.getAllDevices(), HttpStatus.OK);
