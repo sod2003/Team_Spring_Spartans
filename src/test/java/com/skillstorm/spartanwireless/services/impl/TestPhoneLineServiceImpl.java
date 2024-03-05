@@ -16,15 +16,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
-import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 import com.skillstorm.spartanwireless.dtos.PhoneLineRequestDto;
 import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
-import com.skillstorm.spartanwireless.mappers.CustomerMapper;
 import com.skillstorm.spartanwireless.models.Customer;
 import com.skillstorm.spartanwireless.models.Device;
 import com.skillstorm.spartanwireless.models.PhoneLine;
 import com.skillstorm.spartanwireless.repositories.CustomerRepository;
+import com.skillstorm.spartanwireless.repositories.DeviceRepository;
 import com.skillstorm.spartanwireless.repositories.PhoneLineRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,8 +37,8 @@ public class TestPhoneLineServiceImpl {
     @Mock
     private CustomerRepository customerRepository;
 
-    @InjectMocks
-    private CustomerServiceImpl customerServiceImpl;
+    @Mock
+    private DeviceRepository deviceRepository;
 
     @Autowired
     private String phoneNumber;
@@ -52,7 +50,16 @@ public class TestPhoneLineServiceImpl {
     private PhoneLine phoneLine2;
 
     @Autowired
+    private Long custId;
+
+    @Autowired
     private Customer customer;
+
+    @Autowired
+    private Long deviceId;
+
+    @Autowired
+    private Device device;
 
     @Autowired
     private PhoneLineRequestDto phoneLineRequestDto;
@@ -60,20 +67,21 @@ public class TestPhoneLineServiceImpl {
     @BeforeEach
     public void init(){
         phoneNumber = "404-687-5309";
-        customer = Customer.builder().custId(1L).name("Bob").address("121 Rock Rd.").email("bob@gmail.com").isArchived(false).build();
-        customerServiceImpl.createCustomer(CustomerRequestDto.builder().name("Bob").address("121 Rock Rd.").email("bob@gmail.com").build());
+        custId = 1L;
+        customer = Customer.builder().custId(custId).name("Bob").address("121 Rock Rd.").email("bob@gmail.com").isArchived(false).build();
+        deviceId = 1L;
+        device = Device.builder().deviceId(deviceId).name("iPhone X").brand("Apple").price(999.99).build();
         phoneLine1 = PhoneLine.builder().phoneNumber("404-687-5309").customer(customer).device(Device.builder().deviceId(1L).build()).build();
         phoneLine1 = PhoneLine.builder().phoneNumber("404-687-5310").customer(customer).device(Device.builder().deviceId(2L).build()).build();
-        phoneLineRequestDto = PhoneLineRequestDto.builder().phoneNumber(phoneNumber).deviceId(1L).build();
+        phoneLineRequestDto = PhoneLineRequestDto.builder().phoneNumber(phoneNumber).deviceId(deviceId).build();
     }
 
     @Test
     public void PhoneLineService_CreatePhoneLine_ReturnsPhoneLineResponseDto() {
-        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
-        when(CustomerMapper.mapToCustomerResponseDto(any(Customer.class))).thenReturn(CustomerResponseDto.builder().custId(1L).name("Confused by Mocks").address("Worst idea lane").email("hopethisworks@google.com").build());
-        when(customer.getCustId()).thenReturn(1L);
+        when(customerRepository.findById(custId)).thenReturn(Optional.ofNullable(customer));
         when(phoneLineRepository.save(any(PhoneLine.class))).thenReturn(phoneLine1);
-        PhoneLineResponseDto phoneLineResponseDto = phoneLineServiceImpl.createPhoneLine(1L, phoneLineRequestDto);
+        when(deviceRepository.findById(deviceId)).thenReturn(Optional.ofNullable(device));
+        PhoneLineResponseDto phoneLineResponseDto = phoneLineServiceImpl.createPhoneLine(custId, phoneLineRequestDto);
         assertNotNull(phoneLineResponseDto);
     }
 
@@ -82,8 +90,8 @@ public class TestPhoneLineServiceImpl {
         List<PhoneLine> phoneLines = new ArrayList<>();
         phoneLines.add(phoneLine1);
         phoneLines.add(phoneLine2);
-        when(phoneLineRepository.findAll()).thenReturn(phoneLines);
-        List<PhoneLineResponseDto> phoneLineResponseDtos = phoneLineServiceImpl.getAllPhoneLines(1L);
+        when(customerRepository.findById(custId)).thenReturn(Optional.ofNullable(customer));
+        List<PhoneLineResponseDto> phoneLineResponseDtos = phoneLineServiceImpl.getAllPhoneLines(custId);
         assertNotNull(phoneLineResponseDtos);
     }
 
