@@ -1,56 +1,105 @@
 package com.skillstorm.spartanwireless.services.impl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skillstorm.spartanwireless.dtos.PhoneLineRequestDto;
+import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
+import com.skillstorm.spartanwireless.models.Customer;
+import com.skillstorm.spartanwireless.models.Device;
 import com.skillstorm.spartanwireless.models.PhoneLine;
+import com.skillstorm.spartanwireless.repositories.CustomerRepository;
+import com.skillstorm.spartanwireless.repositories.DeviceRepository;
 import com.skillstorm.spartanwireless.repositories.PhoneLineRepository;
-import com.skillstorm.spartanwireless.services.PhoneLineService;
 
+@ExtendWith(MockitoExtension.class)
 public class TestPhoneLineServiceImpl {
 
-    PhoneLineService pls;
-    List<PhoneLine> phoneLines;
+    @Mock
+    private PhoneLineRepository phoneLineRepository;
 
-    @BeforeAll
+    @InjectMocks
+    private PhoneLineServiceImpl phoneLineServiceImpl;
+
+    @Mock
+    private CustomerRepository customerRepository;
+
+    @Mock
+    private DeviceRepository deviceRepository;
+
+    @Autowired
+    private String phoneNumber;
+
+    @Autowired
+    private PhoneLine phoneLine1;
+
+    @Autowired
+    private PhoneLine phoneLine2;
+
+    @Autowired
+    private Long custId;
+
+    @Autowired
+    private Customer customer;
+
+    @Autowired
+    private Long deviceId;
+
+    @Autowired
+    private Device device;
+
+    @Autowired
+    private PhoneLineRequestDto phoneLineRequestDto;
+
+    @BeforeEach
     public void init(){
-        // TODO Create phoneLines list
-        // pls = new PhoneLineServiceImpl(new TestPhoneLineRepository());
+        phoneNumber = "404-687-5309";
+        custId = 1L;
+        customer = Customer.builder().custId(custId).name("Bob").address("121 Rock Rd.").email("bob@gmail.com").isArchived(false).build();
+        deviceId = 1L;
+        device = Device.builder().deviceId(deviceId).name("iPhone X").brand("Apple").price(999.99).build();
+        phoneLine1 = PhoneLine.builder().phoneNumber("404-687-5309").customer(customer).device(Device.builder().deviceId(1L).build()).build();
+        phoneLine1 = PhoneLine.builder().phoneNumber("404-687-5310").customer(customer).device(Device.builder().deviceId(2L).build()).build();
+        phoneLineRequestDto = PhoneLineRequestDto.builder().phoneNumber(phoneNumber).deviceId(deviceId).build();
     }
 
     @Test
-    public void TestCreatePhoneLine(PhoneLineRequestDto phoneLineRequestDto) {
-        // TODO Create a test for Service's createPhoneLine method
+    public void PhoneLineService_CreatePhoneLine_ReturnsPhoneLineResponseDto() {
+        when(customerRepository.findById(custId)).thenReturn(Optional.ofNullable(customer));
+        when(phoneLineRepository.save(any(PhoneLine.class))).thenReturn(phoneLine1);
+        when(deviceRepository.findById(deviceId)).thenReturn(Optional.ofNullable(device));
+        PhoneLineResponseDto phoneLineResponseDto = phoneLineServiceImpl.createPhoneLine(custId, phoneLineRequestDto);
+        assertNotNull(phoneLineResponseDto);
     }
 
     @Test
-    public void TestGetAllPhoneLines() {
-        // TODO Create a test for Service's getAllPhoneLines method
+    public void PhoneLineService_GetAllPhoneLine_ReturnsListOfPhoneLineResponseDto() {
+        List<PhoneLine> phoneLines = new ArrayList<>();
+        phoneLines.add(phoneLine1);
+        phoneLines.add(phoneLine2);
+        when(customerRepository.findById(custId)).thenReturn(Optional.ofNullable(customer));
+        List<PhoneLineResponseDto> phoneLineResponseDtos = phoneLineServiceImpl.getAllPhoneLines(custId);
+        assertNotNull(phoneLineResponseDtos);
     }
 
     @Test
-    public void TestGetPhoneLineById(String phoneNumber) {
-        // TODO Create a test for Service's getPhoneLineById method
-    }
-
-    @Test
-    public void TestUpdatePhoneLine(String phoneNumber, PhoneLineRequestDto phoneLineRequestDto) {
-        // TODO Create a test for Service's updatePhoneLine method
-    }
-
-    @Test
-    public void TestDeletePhoneLine(String phoneNumber) {
-        // TODO Create a test for Service's deletePhoneLine method
+    public void PhoneLineService_GetPhoneLineById_ReturnsPhoneLineResponseDto() {
+        when(phoneLineRepository.findById(phoneNumber)).thenReturn(Optional.ofNullable(phoneLine1));
+        PhoneLineResponseDto phoneLineResponseDto = phoneLineServiceImpl.getPhoneLineById(phoneNumber);
+        assertNotNull(phoneLineResponseDto);
     }
     
 }

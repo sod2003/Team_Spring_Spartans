@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.skillstorm.spartanwireless.dtos.PhonePlanRequestDto;
 import com.skillstorm.spartanwireless.dtos.PhonePlanResponseDto;
 import com.skillstorm.spartanwireless.exceptions.PhonePlanNotPurchasedException;
 import com.skillstorm.spartanwireless.models.Customer;
@@ -25,6 +26,26 @@ import com.skillstorm.spartanwireless.repositories.PhonePlanRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class TestPhonePlanServiceImpl {
+
+    @Test
+    public void TestCreatePhonePlan(PhonePlanRequestDto phonePlanRequestDto) {
+        // TODO Create a test for Service's createPhonePlan method
+    }
+
+    @Test
+    public void TestGetAllPhonePlans() {
+        // TODO Create a test for Service's getAllPhonePlans method
+    }
+
+    @Test
+    public void TestGetPhonePlanById(Long phonePlanId) {
+        // TODO Create a test for Service's getPhonePlanById method
+    }
+
+    @Test
+    public void TestUpdatePhonePlan(Long phonePlanId, PhonePlanRequestDto phonePlanRequestDto) {
+        // TODO Create a test for Service's updatePhonePlan method
+    }
     
     @Mock
     private PhonePlanRepository phonePlanRepository;
