@@ -25,7 +25,7 @@ public class TestPhonePlanServiceImpl {
     @BeforeAll
     public void init() {
         // TODO Create phonePlan list
-        pps = new PhonePlanServiceImpl(new TestPhonePlanRepo(), new TestCustomerRepo());
+        // pps = new PhonePlanServiceImpl(new TestPhonePlanRepo(), new TestCustomerRepo());
     }
 
     @Test
