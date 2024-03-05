@@ -1,215 +1,104 @@
 package com.skillstorm.spartanwireless.services.impl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.skillstorm.spartanwireless.dtos.PhonePlanRequestDto;
+import com.skillstorm.spartanwireless.dtos.PhonePlanResponseDto;
+import com.skillstorm.spartanwireless.exceptions.PhonePlanNotPurchasedException;
+import com.skillstorm.spartanwireless.models.Customer;
 import com.skillstorm.spartanwireless.models.PhonePlan;
+import com.skillstorm.spartanwireless.repositories.CustomerRepository;
 import com.skillstorm.spartanwireless.repositories.PhonePlanRepository;
-import com.skillstorm.spartanwireless.services.PhonePlanService;
 
+@ExtendWith(MockitoExtension.class)
 public class TestPhonePlanServiceImpl {
-
-    PhonePlanService pps;
-    List<PhonePlan> phonePlans;
-
-    @BeforeAll
-    public void init() {
-        // TODO Create phonePlan list
-        pps = new PhonePlanServiceImpl(new TestPhonePlanRepo(), new TestCustomerRepo());
-    }
-
-    @Test
-    public void TestCreatePhonePlan(PhonePlanRequestDto phonePlanRequestDto) {
-        // TODO Create a test for Service's createPhonePlan method
-    }
-
-    @Test
-    public void TestGetAllPhonePlans() {
-        // TODO Create a test for Service's getAllPhonePlans method
-    }
-
-    @Test
-    public void TestGetPhonePlanById(Long phonePlanId) {
-        // TODO Create a test for Service's getPhonePlanById method
-    }
-
-    @Test
-    public void TestUpdatePhonePlan(Long phonePlanId, PhonePlanRequestDto phonePlanRequestDto) {
-        // TODO Create a test for Service's updatePhonePlan method
-    }
     
-}
+    @Mock
+    private PhonePlanRepository phonePlanRepository;
+    @Mock 
+    private CustomerRepository customerRepository;
 
-class TestPhonePlanRepo implements PhonePlanRepository {
+    @InjectMocks
+    private PhonePlanServiceImpl phonePlanServiceImpl;
 
-    @Override
-    public void flush() {
-        throw new UnsupportedOperationException("Unimplemented method 'flush'");
+    @Autowired
+    private Long phonePlanId1;
+    @Autowired
+    private PhonePlan phonePlan1;
+    @Autowired
+    private PhonePlan phonePlan2;
+    @Autowired
+    private Long custId1;
+    @Autowired
+    private Customer customer1;
+    @Autowired
+    private List<PhonePlan> phonePlanList;
+
+    @BeforeEach
+    public void init() {
+        custId1 = 1L;
+        phonePlanId1 = 1L;
+        phonePlanList = new ArrayList<PhonePlan>();
+        phonePlan1 = PhonePlan.builder().phoneLines(1).dataLimit(10).cost(49.99).build();
+        phonePlan2 = PhonePlan.builder().phoneLines(2).dataLimit(15).cost(59.99).build();
+        customer1 = Customer.builder().custId(1L).name("Bob").address("121 Rock Rd.").email("bob@gmail.com").isArchived(false).build();
     }
 
-    @Override
-    public <S extends PhonePlan> S saveAndFlush(S entity) {
-        throw new UnsupportedOperationException("Unimplemented method 'saveAndFlush'");
+    @Test
+    public void PhonePlanService_CreatePhonePlan_ReturnsPhonePlanResponseDto() {
+        // ARRANGE
+        phonePlanList.add(phonePlan1);
+        customer1.setPhonePlans(phonePlanList);
+        // ACT
+        when(phonePlanRepository.findById(phonePlanId1)).thenReturn(Optional.ofNullable(phonePlan1));
+        when(customerRepository.findById(custId1)).thenReturn(Optional.ofNullable(customer1));
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer1);
+        PhonePlanResponseDto phonePlanResponseDto = phonePlanServiceImpl.createPhonePlan(custId1, phonePlanId1);
+        // ASSERT
+        assertNotNull(phonePlanResponseDto);
     }
 
-    @Override
-    public <S extends PhonePlan> List<S> saveAllAndFlush(Iterable<S> entities) {
-        throw new UnsupportedOperationException("Unimplemented method 'saveAllAndFlush'");
+    @Test
+    public void PhonePlanService_GetAllPhonePlansByCustId_ReturnsListOfPhonePlanReponseDto() {
+        // ARRANGE
+        phonePlanList.add(phonePlan1);
+        phonePlanList.add(phonePlan2);
+        // ACT
+        when(phonePlanRepository.findAll(custId1)).thenReturn(phonePlanList);
+        List<PhonePlanResponseDto> phonePlanResponseDtoList = phonePlanServiceImpl.getAllPhonePlansByCustId(custId1);
+        // ASSERT
+        assertNotNull(phonePlanResponseDtoList);
     }
 
-    @Override
-    public void deleteAllInBatch(Iterable<PhonePlan> entities) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAllInBatch'");
+    @Test
+    public void PhonePlanService_FindById_ReturnCustomerResponseDto() {
+        // ARRANGE
+        phonePlanList.add(phonePlan1);
+        customer1.setPhonePlans(phonePlanList);
+        // ACT
+        when(customerRepository.findById(custId1)).thenReturn(Optional.ofNullable(customer1));
+        // ASSERT
+        assertThrows(PhonePlanNotPurchasedException.class, () -> phonePlanServiceImpl.getPhonePlanById(custId1, phonePlanId1));
     }
 
-    @Override
-    public void deleteAllByIdInBatch(Iterable<Long> ids) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAllByIdInBatch'");
-    }
+    /* 
+    (Comment in MAIN controller for UPDATE) There are only 3 Plans that Spartan 
+    Wireless provides. The plans cannot be altered in themselves. However, the
+    plans can be added onto and removed from customers as needed or not. 
+    */ 
 
-    @Override
-    public void deleteAllInBatch() {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAllInBatch'");
-    }
-
-    @Override
-    public PhonePlan getOne(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
-    }
-
-    @Override
-    public PhonePlan getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
-    }
-
-    @Override
-    public PhonePlan getReferenceById(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getReferenceById'");
-    }
-
-    @Override
-    public <S extends PhonePlan> List<S> findAll(Example<S> example) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public <S extends PhonePlan> List<S> findAll(Example<S> example, Sort sort) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public <S extends PhonePlan> List<S> saveAll(Iterable<S> entities) {
-        throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
-    }
-
-    @Override
-    public List<PhonePlan> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public List<PhonePlan> findAllById(Iterable<Long> ids) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAllById'");
-    }
-
-    @Override
-    public <S extends PhonePlan> S save(S entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
-
-    @Override
-    public Optional<PhonePlan> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
-    }
-
-    @Override
-    public boolean existsById(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
-    }
-
-    @Override
-    public long count() {
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-    }
-
-    @Override
-    public void delete(PhonePlan entity) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends Long> ids) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAllById'");
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends PhonePlan> entities) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
-    }
-
-    @Override
-    public void deleteAll() {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
-    }
-
-    @Override
-    public List<PhonePlan> findAll(Sort sort) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public Page<PhonePlan> findAll(Pageable pageable) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public <S extends PhonePlan> Optional<S> findOne(Example<S> example) {
-        throw new UnsupportedOperationException("Unimplemented method 'findOne'");
-    }
-
-    @Override
-    public <S extends PhonePlan> Page<S> findAll(Example<S> example, Pageable pageable) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public <S extends PhonePlan> long count(Example<S> example) {
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
-    }
-
-    @Override
-    public <S extends PhonePlan> boolean exists(Example<S> example) {
-        throw new UnsupportedOperationException("Unimplemented method 'exists'");
-    }
-
-    @Override
-    public <S extends PhonePlan, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
-        throw new UnsupportedOperationException("Unimplemented method 'findBy'");
-    }
-
-    @Override
-    public List<PhonePlan> findAll(Long custId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
 
 }

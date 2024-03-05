@@ -1,6 +1,5 @@
 package com.skillstorm.spartanwireless.services.impl;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
