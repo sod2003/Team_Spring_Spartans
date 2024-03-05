@@ -2,6 +2,8 @@ package com.skillstorm.spartanwireless.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,7 @@ public class Device {
     @Column(name = "price")
     private double price;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "device")
     private List<PhoneLine> phoneLines;
 }

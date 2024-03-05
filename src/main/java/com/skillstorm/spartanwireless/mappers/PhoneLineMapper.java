@@ -4,6 +4,8 @@ import com.skillstorm.spartanwireless.dtos.PhoneLineRequestDto;
 import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
 import com.skillstorm.spartanwireless.models.PhoneLine;
 
+import static com.skillstorm.spartanwireless.mappers.DeviceMapper.mapToDeviceResponseDto;
+
 public class PhoneLineMapper {
     
     public static PhoneLine mapToPhoneLine(PhoneLineRequestDto phoneLineRequestDto) {
@@ -17,8 +19,7 @@ public class PhoneLineMapper {
         return PhoneLineResponseDto
             .builder()
             .phoneNumber(phoneLine.getPhoneNumber())
-            .customer(phoneLine.getCustomer())
-            .device(phoneLine.getDevice())
+            .deviceResponseDto(mapToDeviceResponseDto(phoneLine.getDevice()))
             .build();
     }
 }

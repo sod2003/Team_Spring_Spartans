@@ -2,6 +2,8 @@ package com.skillstorm.spartanwireless.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,6 +53,7 @@ public class Customer {
         inverseJoinColumns=@JoinColumn(name="phone_plan_id", referencedColumnName="phone_plan_id"))
     private List<PhonePlan> phonePlans;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<PhoneLine> lines;
 }
