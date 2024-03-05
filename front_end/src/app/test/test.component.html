@@ -1,1 +1,4 @@
-<p>test works!</p>
+<p>Displaying Customers:</p>
+@for (customer of customers; track customer) {
+    <app-customer [customer]="customer"></app-customer>
+}
