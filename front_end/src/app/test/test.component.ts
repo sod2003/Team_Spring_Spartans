@@ -12,6 +12,8 @@ export class TestComponent {
 
   constructor(private backend: BackendService) {
     this.backend.getAllCustomers();
+    // this.backend.getCustomer('1');
+    this.backend.getDevices();
   }
 
 }

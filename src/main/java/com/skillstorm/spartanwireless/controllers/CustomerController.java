@@ -37,6 +37,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getAllActiveCustomers(), HttpStatus. OK);
     }
 
+    @CrossOrigin
     @GetMapping("/{custId}")
     public ResponseEntity<CustomerResponseDto> getCustomerById(@PathVariable Long custId) {
         return new ResponseEntity<>(customerService.getCustomerById(custId), HttpStatus.OK);
