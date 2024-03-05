@@ -9,4 +9,5 @@ public class DeviceRequestDto {
     
     private String name;
     private String brand;
+    private double price;
 }

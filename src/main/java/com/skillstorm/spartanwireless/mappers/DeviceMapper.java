@@ -11,6 +11,7 @@ public class DeviceMapper {
             .builder()
             .name(deviceRequestDto.getName())
             .brand(deviceRequestDto.getBrand())
+            .price(deviceRequestDto.getPrice())
             .build();
     }
 
