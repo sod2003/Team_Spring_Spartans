@@ -14,7 +14,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- Populating tables with fresh test data
 INSERT INTO spartan.customer (name, address, email, archived)
 VALUES
-("Sean", "123 Peachetree Street", "sean@spartanwireless.com", 0),
+("Sean", "123 Peachtree Street", "sean@spartanwireless.com", 0),
 ("Matt", "456 Peachtree Road", "matt@spartanwireless.com", 0), 
 ("Carlos", "789 Peachtree Avenue", "carlos@spartanwireless.com", 0),
 ("Sam", "1010 Piedmont Street", "sam@spartanwireless.com", 0);

@@ -8,18 +8,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CustomerService {
 
-  localHost: string = 'http://localhost:8080';
+  localHost: string = 'http://localhost:8080/customers';
   
   customersRaw: Customer[] = [];
   customersSubject = new BehaviorSubject<Customer[]>([]);
   allCustomers = this.customersSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.getAllCustomers();
-  }
+  constructor(private http: HttpClient) {}
 
-  getAllCustomers() {
-    this.http.get<any>(this.localHost + "/customers", { observe: 'response' })
+  getAllActiveCustomers() {
+    this.http.get<any>(this.localHost, { observe: 'response' })
     .subscribe(data => {
 
       this.customersRaw = [];
@@ -36,10 +34,31 @@ export class CustomerService {
     });
   }
 
-  getCustomer(id: string) {
-    this.http.get<any>(this.localHost + "/customers/" + id, { observe: 'response'})
+  getCustomerById(id: string) {
+    this.http.get<any>(`${this.localHost}/${id}`, { observe: 'response'})
     .subscribe(data => {
       console.log(data);
     })
+  }
+
+  createCustomer(customer: Customer) {
+    this.http.post<any>(this.localHost, customer, { observe: 'response' })
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  updateCustomer(customer: Customer) {
+    this.http.put<any>(`${this.localHost}/${customer.custId}`, customer, { observe: 'response' })
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  deleteCustomer(customer: Customer) {
+    this.http.delete<any>(`${this.localHost}/${customer.custId}`, { observe: 'response' })
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 }
