@@ -19,6 +19,7 @@ import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
 import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 import com.skillstorm.spartanwireless.services.CustomerService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
@@ -31,13 +32,11 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.createCustomer(customerRequestDto), HttpStatus.CREATED);
     }
 
-    @CrossOrigin
     @GetMapping
     public ResponseEntity<List<CustomerResponseDto>> getAllActiveCustomers() {
         return new ResponseEntity<>(customerService.getAllActiveCustomers(), HttpStatus. OK);
     }
 
-    @CrossOrigin
     @GetMapping("/{custId}")
     public ResponseEntity<CustomerResponseDto> getCustomerById(@PathVariable Long custId) {
         return new ResponseEntity<>(customerService.getCustomerById(custId), HttpStatus.OK);
