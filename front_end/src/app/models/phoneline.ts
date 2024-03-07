@@ -1,13 +1,10 @@
-import { Customer } from "./customer";
-import { Device } from "./device";
-
 export class Phoneline {
     phoneNumber: string;
-    device: Device;
+    deviceId: number;
 
     constructor(phoneNumber: string,
-                device: Device) {
+                deviceId: number) {
         this.phoneNumber = phoneNumber;
-        this.device = device;
+        this.deviceId = deviceId;
     }
 }

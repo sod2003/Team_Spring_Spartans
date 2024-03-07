@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Phoneline } from '../../models/phoneline';
 import { PhonelineService } from '../../services/phoneline.service';
-import { Device } from '../../models/device';
 
 @Component({
   selector: 'app-testphoneline',
@@ -20,8 +19,8 @@ export class TestphonelineComponent {
       this.phonelines = data;
       console.log(data);
     });
-    this.phonelineService.createPhoneline("1", new Phoneline("404-455-5555", new Device(3, "", "", 0)));
-    this.phonelineService.getPhonelineById("1", "404-455-4555");
-    this.phonelineService.deleteById("1", "404-455-4555");
+    this.phonelineService.createPhoneline("1", new Phoneline("404-455-5555", 3));
+    this.phonelineService.getPhonelineById("4", "678-867-5312");
+    this.phonelineService.deleteById("1", "678-867-5309");
   }
 }
