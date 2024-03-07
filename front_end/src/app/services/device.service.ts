@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Device } from '../models/device';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,11 @@ import { Device } from '../models/device';
 export class DeviceService {
 
   localHost: string = 'http://localhost:8080/devices';
+
+  // All Devices
+  devicesRaw = [];
+  devicesSubject = new BehaviorSubject<Device[]>([]);
+  devicesObservable = this.devicesSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +27,8 @@ export class DeviceService {
   getAllDevices() {
     this.http.get<any>(this.localHost, { observe: 'response' })
       .subscribe(data => {
-        console.log(data);
+        this.devicesRaw = [];
+        
       })
   }
 
