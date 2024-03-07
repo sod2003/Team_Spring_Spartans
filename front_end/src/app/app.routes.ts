@@ -11,18 +11,22 @@ export const routes: Routes = [
         path: '',
         component: HomeComponent
     },
-    
-    {
-        path: 'test',
-        component: TestComponent
-    },
-    {
-        path: 'testdevice',
-        component: TestDeviceComponent
-    },
-    {
-        path: 'testphoneline',
-        component: TestphonelineComponent
-    }
+
+    // {
+    //     path: 'devices',
+    //     component: DevicesComponent
+    // },
+    // {
+    //     path: 'test',
+    //     component: TestComponent
+    // },
+    // {
+    //     path: 'testdevice',
+    //     component: TestDeviceComponent
+    // },
+    // {
+    //     path: 'testphoneline',
+    //     component: TestphonelineComponent
+    // }
 
 ];

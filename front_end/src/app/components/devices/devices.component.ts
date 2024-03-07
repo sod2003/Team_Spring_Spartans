@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '../../models/device';
 import { DeviceService } from '../../services/device.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-devices',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.css'
 })
@@ -16,7 +17,9 @@ export class DevicesComponent implements OnInit {
   constructor(private deviceService: DeviceService) {}
 
   ngOnInit(): void {
-      this.deviceService.getAllDevices
+      this.deviceService.devicesObservable.subscribe((data) => {
+        this.devices = data;
+      });
   }
 
 }

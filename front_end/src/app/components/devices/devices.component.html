@@ -1,1 +1,20 @@
-<p>devices works!</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let device of devices">
+            <tr>
+                <th scope="row">{{ device.deviceId }}</th>
+                <td>{{ device.name }}</td>
+                <td>{{ device.brand }}</td>
+                <td>${{ device.price }}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Device } from '../models/device';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -11,11 +11,13 @@ export class DeviceService {
   localHost: string = 'http://localhost:8080/devices';
 
   // All Devices
-  devicesRaw = [];
+  devicesRaw: Device[] = [];
   devicesSubject = new BehaviorSubject<Device[]>([]);
   devicesObservable = this.devicesSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.getAllDevices();
+  }
 
   createDevice(device: Device) {
     this.http.post<any>(this.localHost, device, { observe: 'response' })
@@ -28,8 +30,11 @@ export class DeviceService {
     this.http.get<any>(this.localHost, { observe: 'response' })
       .subscribe(data => {
         this.devicesRaw = [];
-        
-      })
+        for (let device of data.body) {
+          this.devicesRaw.push(new Device(device.deviceId, device.name, device.brand, device.price));
+        }
+        this.devicesSubject.next(this.devicesRaw);
+      });
   }
 
   getDeviceById(deviceId: number) {
