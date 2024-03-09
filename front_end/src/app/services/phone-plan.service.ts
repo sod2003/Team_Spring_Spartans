@@ -14,9 +14,7 @@ export class PhonePlanService {
   phonePlansSubject = new BehaviorSubject<PhonePlan[]>([]);
   phonePlansObservable = this.phonePlansSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.getAllPhonePlansByCustId(1);
-  }
+  constructor(private http: HttpClient) {}
 
   createPhonePlan(custId: number, phonePlanId: number) {
     this.http.post<any>(`${this.localHost}/${custId}/phone_plans/${phonePlanId}`, { observe: 'response' })

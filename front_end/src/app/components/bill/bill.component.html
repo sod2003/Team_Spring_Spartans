@@ -1,1 +1,20 @@
-<p>bill works!</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Lines</th>
+            <th scope="col">Data Limit</th>
+            <th scope="col">Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let phonePlan of phonePlans">
+            <tr>
+                <th scope="row">{{ phonePlan.phonePlanId }}</th>
+                <td>{{ phonePlan.phoneLines }}</td>
+                <td>{{ phonePlan.dataLimit }}</td>
+                <td>${{ phonePlan.cost }}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
