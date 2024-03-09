@@ -27,11 +27,9 @@ export class BillComponent {
   ) { }
 
   ngOnInit(): void {
-    this.customerService.getCustomerById();
     this.customerService.customerObservable.subscribe((data) => {
       this.customer = data;
     })
-    this.phonePlanService.getAllPhonePlansByCustId();
     this.phonePlanService.phonePlansObservable.subscribe((data) => {
       this.phonePlans = data;
     });
