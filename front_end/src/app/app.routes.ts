@@ -20,14 +20,12 @@ export const routes: Routes = [
 =======
 import { DevicesComponent } from './components/devices/devices.component';
 import { PhonePlansComponent } from './components/phone-plans/phone-plans.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
-        path: 'devices',
-        component: DevicesComponent
-    }, {
-        path: 'phone-plans',
-        component: PhonePlansComponent
+        path: 'dashboard',
+        component: DashboardComponent
     }
     
     // ,
