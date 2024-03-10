@@ -16,6 +16,13 @@ export class PhonelineService {
 
   constructor(private http: HttpClient) {}
 
+  createPhoneline(custId: string, phoneline: Phoneline) {
+    this.http.post<any>(`${this.localHost}/${custId}/lines`, phoneline, { observe: 'response' })
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+
   getAllPhonelines(custId: string) {
     this.http.get<any>(`${this.localHost}/${custId}/lines`, { observe: 'response' })
     .subscribe(data => {
@@ -29,13 +36,6 @@ export class PhonelineService {
         ));
       }
       this.phonelinesSubject.next(this.phonelinesRaw);
-    });
-  }
-
-  createPhoneline(custId: string, phoneline: Phoneline) {
-    this.http.post<any>(`${this.localHost}/${custId}/lines`, phoneline, { observe: 'response' })
-    .subscribe(data => {
-      console.log(data);
     });
   }
   
