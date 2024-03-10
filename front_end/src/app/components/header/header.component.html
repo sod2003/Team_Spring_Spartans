@@ -6,10 +6,10 @@
         <h1 class="title">Spartan Wireless</h1>
     </a>
     <ng-container *ngIf="customer.getCustId() === 0">
-        <a href="/login" (click)="234">Login/Register</a>
+        <a href="/login">Login/Register</a>
     </ng-container>
     <ng-container *ngIf="customer.getCustId() !== 0">
-        <a href="/logout" (click)="234">Logout</a>
+        <a href="/logout">Logout</a>
     </ng-container>
 
 </header>
