@@ -7,6 +7,7 @@ TRUNCATE spartan.phone_plan;
 TRUNCATE spartan.phone_line;
 TRUNCATE spartan.customer;
 TRUNCATE spartan.device;
+TRUNCATE spartan.user;
 
 -- Enabling Foreign Key Constraint checks so that MySQL will operate normally.
 SET FOREIGN_KEY_CHECKS = 1;
@@ -45,3 +46,9 @@ VALUES
 (3, 2, "678-867-5310"),
 (3, 2, "678-867-5311"),
 (4, 1, "678-867-5312");
+
+INSERT INTO spartan.user ()
+VALUES
+(1, "seanone", "sean"),
+(3, "carlostwo", "carlos"),
+(4, "samthree", "sam");
