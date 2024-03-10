@@ -10,5 +10,5 @@ import { Customer } from '../../models/customer';
 })
 export class CustomerComponent {
 
-  @Input() customer: Customer = new Customer("", "", "", "");
+  @Input() customer: Customer = new Customer(0, "", "", "");
 }

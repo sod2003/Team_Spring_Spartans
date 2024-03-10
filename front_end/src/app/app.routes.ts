@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { TestComponent } from './test/test.component';
+import { TestComponent } from './test/testcustomer/test.component';
 import { TestDeviceComponent } from './test/testdevice/testdevice.component';
 import { TestphonelineComponent } from './test/testphoneline/testphoneline.component';
 import { HeaderComponent } from './components/header/header.component';
