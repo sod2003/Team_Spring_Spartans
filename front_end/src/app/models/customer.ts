@@ -13,4 +13,8 @@ export class Customer {
         this.address = address;
         this.email = email;
     }
+
+    getCustId() {
+        return this.custId;
+    }
 }
