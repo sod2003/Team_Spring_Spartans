@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,4 +57,7 @@ public class Customer {
     @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<PhoneLine> lines;
+
+    @OneToOne(mappedBy = "customer")
+    private User user;
 }
