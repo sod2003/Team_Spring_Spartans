@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.production';
-import { UserLogin } from '../../models/user-login';
 import { CryptoService } from '../../services/crypto.service';
 import { UserRegister } from '../../models/user-register';
 
@@ -57,8 +56,8 @@ export class RegisterComponent implements OnInit {
     ])]
   });
 
-  login(userLogin: UserLogin) {
-    this.httpClient.post<any>(this.url, userLogin, { observe: 'response' })
+  register(userRegister: UserRegister) {
+    this.httpClient.post<any>(this.url, userRegister, { observe: 'response' })
       .subscribe({
         next: data => {
           this.userRegister = new UserRegister(
