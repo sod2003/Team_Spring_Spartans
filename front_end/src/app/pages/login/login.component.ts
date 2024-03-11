@@ -4,6 +4,7 @@ import { CryptoService } from '../../services/crypto.service';
 import { environment } from '../../../environments/environment.production';
 import { HttpClient } from '@angular/common/http';
 import { UserLogin } from '../../models/user-login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { UserLogin } from '../../models/user-login';
 })
 export class LoginComponent implements OnInit {
 
+  baseUrl = "http://localhost:8080";
   url = "http://localhost:8080/login";
   encodingKey = environment.encodingKey;
   private userLogin = new UserLogin("", "");
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private cryptoService: CryptoService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -50,9 +53,14 @@ export class LoginComponent implements OnInit {
 
   login(userLogin: UserLogin) {
     this.httpClient.post<any>(this.url, userLogin, { observe: 'response' })
-      .subscribe(data => {
-        console.log(data);
+      .subscribe({
+        next: data => {
+          this.router.navigate([this.baseUrl + data.body.custId]);
+        },
+        error: err => console.log(err),
+        complete: () => console.log('POST request complete!')
       });
   }
+
 
 }
