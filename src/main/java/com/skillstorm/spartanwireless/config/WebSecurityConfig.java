@@ -23,13 +23,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(Customizer.withDefaults())
-            .authorizeHttpRequests((requests) -> requests
-                    .requestMatchers("/login").permitAll()
-                    .anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults())
-            .formLogin(Customizer.withDefaults())
-            .logout((logout) -> logout.permitAll());
+                .httpBasic(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/login").permitAll()
+                        .anyRequest().authenticated())
+                // .formLogin(Customizer.withDefaults())
+                .logout((logout) -> logout.permitAll());
         return http.build();
     }
 
@@ -38,10 +38,10 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+    // @Bean
+    // public AuthenticationManager authenticationManager(
+    // AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    // return authenticationConfiguration.getAuthenticationManager();
+    // }
 
 }
