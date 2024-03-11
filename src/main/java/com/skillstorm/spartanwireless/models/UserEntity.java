@@ -18,8 +18,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "user_entity")
+public class UserEntity {
 
     @Id
     @Column(name = "username")
