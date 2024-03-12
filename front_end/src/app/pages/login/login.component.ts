@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CryptoService } from '../../services/crypto.service';
 import { environment } from '../../../environments/environment.production';
 import { HttpClient } from '@angular/common/http';
 import { UserLogin } from '../../models/user-login';
@@ -22,18 +21,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private cryptoService: CryptoService,
     private httpClient: HttpClient,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-
-    let encrypted = this.cryptoService.encrypt(this.loginForm.get("password")?.value!, this.encodingKey);
-    let decrypted = this.cryptoService.decrypt(encrypted, this.encodingKey);
-
-    console.log('Encrypted :' + encrypted);
-    console.log('Decrypted :' + decrypted);
 
   }
 

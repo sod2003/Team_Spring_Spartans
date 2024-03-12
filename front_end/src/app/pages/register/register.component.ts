@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.production';
-import { CryptoService } from '../../services/crypto.service';
 import { UserRegister } from '../../models/user-register';
 
 @Component({
@@ -22,19 +21,11 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private cryptoService: CryptoService,
     private httpClient: HttpClient,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-
-    let encrypted = this.cryptoService.encrypt(this.registerForm.get("password")?.value!, this.encodingKey);
-    let decrypted = this.cryptoService.decrypt(encrypted, this.encodingKey);
-
-    console.log('Encrypted :' + encrypted);
-    console.log('Decrypted :' + decrypted);
-
   }
 
   registerForm = this.formBuilder.group({
