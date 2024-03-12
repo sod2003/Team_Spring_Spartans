@@ -1,22 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.production';
-import { UserRegister } from '../../models/user-register';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
 
   registerUrl = environment.registerUrl;
-  loginUrl = environment.loginUrl;
-  private userRegister = new UserRegister("", "", "", "", "");
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,9 +22,10 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
 
-  registerForm = this.formBuilder.group({
+  registerForm: FormGroup = this.formBuilder.group({
     fullName: ['', Validators.compose([
       Validators.required
     ])],
@@ -46,21 +44,19 @@ export class RegisterComponent implements OnInit {
     ])]
   });
 
-  register(userRegister: UserRegister) {
-    this.httpClient.post<any>(this.registerUrl, userRegister, { observe: 'response' })
+  register() {
+    this.httpClient.post<any>(this.registerUrl, this.registerForm.value, { observe: 'response' })
       .subscribe({
-        next: data => {
-          this.userRegister = new UserRegister(
-            this.registerForm.get("fullName")?.value!,
-            this.registerForm.get("email")?.value!,
-            this.registerForm.get("address")?.value!,
-            this.registerForm.get("username")?.value!,
-            this.registerForm.get("password")?.value!
-            );
-          this.router.navigate([this.loginUrl]);
+        next: () => {
         },
-        error: err => console.log(err),
-        complete: () => console.log('Registered Successfully!')
+        error: err => {
+          console.log(err);
+          this.router.navigate(["/login"]);
+        },
+        complete: () => {
+          console.log('Registered Successfully!');
+          this.router.navigate(["/login"]);
+        }
       });
   }
 

@@ -19,7 +19,7 @@ import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
 import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 import com.skillstorm.spartanwireless.services.CustomerService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {

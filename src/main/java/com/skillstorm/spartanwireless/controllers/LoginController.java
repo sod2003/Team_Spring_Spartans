@@ -14,7 +14,7 @@ import com.skillstorm.spartanwireless.dtos.LoginRequestDto;
 import com.skillstorm.spartanwireless.dtos.LoginResponseDto;
 import com.skillstorm.spartanwireless.repositories.UserRepository;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class LoginController {
 

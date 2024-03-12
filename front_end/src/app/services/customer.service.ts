@@ -41,6 +41,7 @@ export class CustomerService {
   getCustomerById(custId: number) {
     this.http.get<any>(`${this.localHost}/${custId}`, { observe: 'response' })
       .subscribe(data => {
+        console.log("hi");
         let details = data.body;
         this.customerRaw = new Customer(details.custId, details.name, details.address, details.email);
         this.customerSubject.next(this.customerRaw);

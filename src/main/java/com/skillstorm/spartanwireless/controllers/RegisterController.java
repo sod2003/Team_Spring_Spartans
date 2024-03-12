@@ -17,7 +17,7 @@ import com.skillstorm.spartanwireless.repositories.UserRepository;
 
 import static com.skillstorm.spartanwireless.mappers.CustomerMapper.mapToCustomer;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class RegisterController {
 
@@ -28,7 +28,7 @@ public class RegisterController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDto registerRequestDto) {
         if (userRepository.existsById(registerRequestDto.getUsername())) {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
