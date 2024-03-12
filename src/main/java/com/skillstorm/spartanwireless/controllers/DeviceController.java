@@ -21,7 +21,7 @@ import com.skillstorm.spartanwireless.services.DeviceService;
 
 /*Testing Branch */
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {

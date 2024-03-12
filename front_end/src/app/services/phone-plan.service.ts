@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PhonePlan } from '../models/phone-plan';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class PhonePlanService {
   phonePlansSubject = new BehaviorSubject<PhonePlan[]>([]);
   phonePlansObservable = this.phonePlansSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+    ) {}
 
   createPhonePlan(custId: number, phonePlanId: number) {
     this.http.post<any>(`${this.localHost}/${custId}/phone_plans/${phonePlanId}`, { observe: 'response' })
@@ -24,7 +28,8 @@ export class PhonePlanService {
   }
 
   getAllPhonePlansByCustId(custId: number) {
-    this.http.get<any>(`${this.localHost}/${custId}/phone_plans`, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.get<any>(`${this.localHost}/${custId}/phone_plans`, { headers, observe: 'response' })
       .subscribe(data => {
         this.phonePlansRaw = [];
         for (let phonePlan of data.body) {

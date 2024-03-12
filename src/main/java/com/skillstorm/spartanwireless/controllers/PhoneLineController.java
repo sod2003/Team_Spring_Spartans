@@ -18,7 +18,7 @@ import com.skillstorm.spartanwireless.dtos.PhoneLineRequestDto;
 import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
 import com.skillstorm.spartanwireless.services.PhoneLineService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("customers/{custId}/lines")
 public class PhoneLineController {

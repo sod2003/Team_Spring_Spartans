@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.spartanwireless.dtos.PhonePlanResponseDto;
 import com.skillstorm.spartanwireless.services.PhonePlanService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/customers/{custId}/phone_plans")
 public class PhonePlanController {

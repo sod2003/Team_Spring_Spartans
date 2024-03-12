@@ -10,6 +10,14 @@ export class UserLogin {
         this.password = password;
     }
 
+    getUsername() {
+        return this.username;
+    }
+
+    getPassword() {
+        return this.password;
+    }
+
     setUsername(username: string) {
         this.username = username;
     }

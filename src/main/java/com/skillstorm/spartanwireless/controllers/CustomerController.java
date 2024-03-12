@@ -19,7 +19,7 @@ import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
 import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 import com.skillstorm.spartanwireless.services.CustomerService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
@@ -28,8 +28,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
-        return new ResponseEntity<>(customerService.createCustomer(customerRequestDto), HttpStatus.CREATED);
+    public CustomerResponseDto createCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
+        return customerService.createCustomer(customerRequestDto);
     }
 
     @GetMapping

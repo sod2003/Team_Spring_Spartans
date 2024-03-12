@@ -17,4 +17,8 @@ export class Customer {
     getCustId() {
         return this.custId;
     }
+
+    getName() {
+        return this.name;
+    }
 }

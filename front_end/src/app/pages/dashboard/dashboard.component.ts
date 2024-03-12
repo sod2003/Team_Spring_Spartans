@@ -3,6 +3,7 @@ import { BillComponent } from '../../components/bill/bill.component';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 import { PhonePlanService } from '../../services/phone-plan.service';
+import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,8 @@ import { PhonePlanService } from '../../services/phone-plan.service';
 })
 export class DashboardComponent implements OnInit {
 
+  customer: Customer = new Customer(0, "", "", "");
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
@@ -20,8 +23,14 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.activatedRoute.snapshot.params["custId"])
     this.customerService.getCustomerById(this.activatedRoute.snapshot.params["custId"]);
     this.phonePlanService.getAllPhonePlansByCustId(this.activatedRoute.snapshot.params["custId"]);
+
+    this.customerService.customerObservable.subscribe((data) => {
+      this.customer = data;
+      console.log(this.customer);
+    })
   }
 
 }

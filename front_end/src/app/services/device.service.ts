@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Device } from '../models/device';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class DeviceService {
   devicesSubject = new BehaviorSubject<Device[]>([]);
   devicesObservable = this.devicesSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
     this.getAllDevices();
   }
 
@@ -27,7 +31,8 @@ export class DeviceService {
   }
 
   getAllDevices() {
-    this.http.get<any>(this.localHost, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.get<any>(this.localHost, { headers, observe: 'response' })
       .subscribe(data => {
         this.devicesRaw = [];
         for (let device of data.body) {

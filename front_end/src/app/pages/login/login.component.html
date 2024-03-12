@@ -1,18 +1,18 @@
 <div class="card position-absolute top-50 start-50 translate-middle" style="width: 20rem;">
     <div class="card-body">
         <h5 class="card-title">Welcome!</h5><br>
-        <form>
+        <form [formGroup]="loginForm">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="username" class="form-control" id="username" aria-describedby="username">
+                <input type="username" class="form-control" id="username" aria-describedby="username" formControlName="username">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" id="password" formControlName="password">
             </div>
             <div class="mb-3 form-check">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button (click)="login()" class="btn btn-primary">Login</button>
             <a href="/register" class="btn btn-light" style="margin-left: 1em;">or Register</a>
         </form>
     </div>

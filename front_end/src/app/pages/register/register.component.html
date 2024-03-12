@@ -1,13 +1,13 @@
 <div class="card position-absolute top-50 start-50 translate-middle" style="width: 25rem;">
     <div class="card-body">
         <h5 class="card-title">Account Registration</h5><br>
-        <form>
+        <form [formGroup]="registerForm">
             <div class="row g-3 align-items-center" style="padding: 2px;">
                 <div class="col-auto">
                     <label for="fullName" class="col-form-label">Full Name:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="fullName" id="fullName" class="form-control" aria-describedby="fullName">
+                    <input type="text" id="fullName" class="form-control" aria-describedby="fullName" formControlName="fullName">
                 </div>
             </div>
             <div class="row g-3 align-items-center" style="padding: 2px;">
@@ -15,7 +15,7 @@
                     <label for="email" class="col-form-label">Email:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="email" id="email" class="form-control" aria-describedby="email">
+                    <input type="email" id="email" class="form-control" aria-describedby="email" formControlName="email">
                 </div>
             </div>
             <div class="row g-3 align-items-center" style="padding: 2px;">
@@ -23,7 +23,7 @@
                     <label for="address" class="col-form-label">Address:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="address" id="address" class="form-control" aria-describedby="address">
+                    <input type="text" id="address" class="form-control" aria-describedby="address" formControlName="address">
                 </div>
             </div>
             <div class="row g-3 align-items-center" style="padding: 2px;">
@@ -31,7 +31,7 @@
                     <label for="username" class="col-form-label">Username:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="username" id="username" class="form-control" aria-describedby="username">
+                    <input type="username" id="username" class="form-control" aria-describedby="username" formControlName="username">
                 </div>
             </div>
             <div class="row g-3 align-items-center" style="padding: 2px;">
@@ -39,13 +39,13 @@
                     <label for="password" class="col-form-label">Password:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="password" id="password" class="form-control" aria-describedby="password">
+                    <input type="password" id="password" class="form-control" aria-describedby="password" formControlName="password">
                 </div>
             </div>
             
             <div class="mb-3 form-check">
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button (click)="register()" class="btn btn-primary">Register</button>
             <a href="/login" class="btn btn-light" style="margin-left: 1em;">or Login</a>
         </form>
     </div>
