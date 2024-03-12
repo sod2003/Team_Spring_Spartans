@@ -14,17 +14,17 @@ import com.skillstorm.spartanwireless.repositories.UserRepository;
 @RestController
 public class LoginController {
 
-    // @Autowired
-    // private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository userRepository;
 
-    // @PostMapping("/login")
-    // public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
-    //     Authentication authenticationRequest = UsernamePasswordAuthenticationToken
-    //             .unauthenticated(loginRequestDto.getUsername(), loginRequestDto.getPassword());
-    //     Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-    //     Long custId = userRepository.findById(loginRequestDto.getUsername()).get().getCustomer().getCustId();
-    //     return new ResponseEntity<>(new LoginResponseDto(loginRequestDto.getUsername(), custId), HttpStatus.OK);
-    // }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+        Authentication authenticationRequest = UsernamePasswordAuthenticationToken
+                .unauthenticated(loginRequestDto.getUsername(), loginRequestDto.getPassword());
+        Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
+        Long custId = userRepository.findById(loginRequestDto.getUsername()).get().getCustomer().getCustId();
+        return new ResponseEntity<>(new LoginResponseDto(loginRequestDto.getUsername(), custId), HttpStatus.OK);
+    }
 }

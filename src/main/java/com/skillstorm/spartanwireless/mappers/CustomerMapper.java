@@ -15,6 +15,16 @@ public class CustomerMapper {
             .build();
     }
 
+    public static Customer mapToCustomer( CustomerResponseDto customerResponseDto) {
+        return Customer
+            .builder()
+            .custId(customerResponseDto.getCustId())
+            .name(customerResponseDto.getName())
+            .address(customerResponseDto.getAddress())
+            .email(customerResponseDto.getEmail())
+            .build();
+    }
+
     public static CustomerResponseDto mapToCustomerResponseDto(Customer customer) {
         return CustomerResponseDto
             .builder()
