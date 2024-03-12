@@ -1,10 +1,10 @@
 export class Customer {
-    custId: string;
+    custId: number;
     name: string;
     address: string;
     email: string;
 
-    constructor(custId: string,
+    constructor(custId: number,
                 name: string,
                 address: string,
                 email: string) {
@@ -12,5 +12,9 @@ export class Customer {
         this.name = name;
         this.address = address;
         this.email = email;
+    }
+
+    getCustId() {
+        return this.custId;
     }
 }

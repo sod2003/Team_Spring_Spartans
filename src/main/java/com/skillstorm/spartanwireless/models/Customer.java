@@ -59,5 +59,5 @@ public class Customer {
     private List<PhoneLine> lines;
 
     @OneToOne(mappedBy = "customer")
-    private User user;
+    private UserEntity user;
 }

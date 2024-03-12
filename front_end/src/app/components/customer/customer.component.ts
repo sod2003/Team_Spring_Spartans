@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Customer } from '../models/customer';
+import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-customer',
@@ -10,5 +10,6 @@ import { Customer } from '../models/customer';
 })
 export class CustomerComponent {
 
-  @Input() customer: Customer = new Customer("", "", "", "");
+  @Input() customer: Customer = new Customer(0, "", "", "");
+
 }

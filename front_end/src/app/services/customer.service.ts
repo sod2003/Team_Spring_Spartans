@@ -9,7 +9,11 @@ import { HttpClient } from '@angular/common/http';
 export class CustomerService {
 
   localHost: string = 'http://localhost:8080/customers';
-  
+
+  customerRaw: Customer = new Customer(0, "", "", "");
+  customerSubject = new BehaviorSubject<Customer>(new Customer(0, "", "", ""));
+  customerObservable = this.customerSubject.asObservable();
+
   customersRaw: Customer[] = [];
   customersSubject = new BehaviorSubject<Customer[]>([]);
   allCustomers = this.customersSubject.asObservable();
@@ -18,27 +22,29 @@ export class CustomerService {
 
   getAllActiveCustomers() {
     this.http.get<any>(this.localHost, { observe: 'response' })
-    .subscribe(data => {
+      .subscribe(data => {
 
-      this.customersRaw = [];
+        this.customersRaw = [];
 
-      for (let customer of data.body) {
-        this.customersRaw.push(new Customer(
-          customer.custId,
-          customer.name,
-          customer.address,
-          customer.email
-        ));
-      }
-      this.customersSubject.next(this.customersRaw);
-    });
+        for (let customer of data.body) {
+          this.customersRaw.push(new Customer(
+            customer.custId,
+            customer.name,
+            customer.address,
+            customer.email
+          ));
+        }
+        this.customersSubject.next(this.customersRaw);
+      });
   }
 
-  getCustomerById(id: string) {
-    this.http.get<any>(`${this.localHost}/${id}`, { observe: 'response'})
-    .subscribe(data => {
-      console.log(data);
-    })
+  getCustomerById(custId: number) {
+    this.http.get<any>(`${this.localHost}/${custId}`, { observe: 'response' })
+      .subscribe(data => {
+        let details = data.body;
+        this.customerRaw = new Customer(details.custId, details.name, details.address, details.email);
+        this.customerSubject.next(this.customerRaw);
+      })
   }
 
   createCustomer(customer: Customer) {

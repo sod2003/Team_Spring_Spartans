@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+
+
+.content {
+    width: 700px;
+    /* Set content width to occupy the left half of the page */
+    float: left;
+    /* Float the content to the left */
+    background-color: #fff;
+    /* Set a background color for the content area */
+    margin: 10px;
+    padding: 10px;
+    border-radius: 25px;
+
+
+    background-color: rgba(255, 255, 255, 0.4);
+    /* Adjust alpha (last value) to control opacity */
+    backdrop-filter: blur(20px);
+    /* Apply blur effect to content background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Optional: Add a border for better contrast */
+}
+
+.home-page {
+    background-image: url('../../../assets/images/home-image.jpeg');
+    /* Set the background image */
+    background-size: cover;
+    /* Cover the entire background */
+    background-position: right;
+    /* Position the background image to the right */
+
+    min-height: 100vh;
+
+
+
+
+}

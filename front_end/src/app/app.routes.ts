@@ -1,28 +1,44 @@
 import { Routes } from '@angular/router';
-import { TestComponent } from './test/test.component';
+import { TestComponent } from './test/testcustomer/test.component';
 import { TestDeviceComponent } from './test/testdevice/testdevice.component';
 import { TestphonelineComponent } from './test/testphoneline/testphoneline.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent
     },
-    
     {
-        path: 'test',
-        component: TestComponent
+        path: 'login',
+        component: LoginComponent
     },
     {
-        path: 'testdevice',
-        component: TestDeviceComponent
+        path: 'register',
+        component: RegisterComponent
     },
     {
-        path: 'testphoneline',
-        component: TestphonelineComponent
+        path: 'customers/:custId',
+        component: DashboardComponent
     }
+    
+    // ,
+    // {
+    //     path: 'test',
+    //     component: TestComponent
+    // },
+    // {
+    //     path: 'testdevice',
+    //     component: TestDeviceComponent
+    // },
+    // {
+    //     path: 'testphoneline',
+    //     component: TestphonelineComponent
+    // }
 
 ];

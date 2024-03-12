@@ -1,11 +1,19 @@
 export class PhonePlan {
 
-    /*
-    (See comment in Phone Plan Service)
-    Created but obselete as Spartan Wireless only offers
-    3 pre-determined phone plans 
     phonePlanId: number;
     phoneLines: number;
     dataLimit: number;
-    */
+    cost: number;
+
+    constructor(
+        phonePlanId: number,
+        phoneLines: number,
+        dataLimit: number,
+        cost: number
+    ) {
+        this.phonePlanId = phonePlanId;
+        this.phoneLines = phoneLines;
+        this.dataLimit = dataLimit;
+        this.cost = cost;
+    }
 }

@@ -1,0 +1,15 @@
+<header>
+    <a href="">
+        <img src="../../../assets/images/logo.PNG" alt="Logo">
+    </a>
+    <a href="">
+        <h1 class="title">Spartan Wireless</h1>
+    </a>
+    <ng-container *ngIf="customer.getCustId() === 0">
+        <a href="/login">Login/Register</a>
+    </ng-container>
+    <ng-container *ngIf="customer.getCustId() !== 0">
+        <a href="/logout">Logout</a>
+    </ng-container>
+
+</header>
