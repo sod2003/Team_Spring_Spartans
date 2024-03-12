@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Customer } from '../models/customer';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
+import { UserLogin } from '../models/user-login';
+import { LoginComponent } from '../pages/login/login.component';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class CustomerService {
 
   localHost: string = 'http://localhost:8080/customers';
-
+  userLogin = new UserLogin("", "");
+  
   customerRaw: Customer = new Customer(0, "", "", "");
   customerSubject = new BehaviorSubject<Customer>(new Customer(0, "", "", ""));
   customerObservable = this.customerSubject.asObservable();
@@ -18,10 +22,14 @@ export class CustomerService {
   customersSubject = new BehaviorSubject<Customer[]>([]);
   allCustomers = this.customersSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+    ) { }
 
   getAllActiveCustomers() {
-    this.http.get<any>(this.localHost, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.get<any>(this.localHost, { headers , observe: 'response' })
       .subscribe(data => {
 
         this.customersRaw = [];
@@ -39,9 +47,10 @@ export class CustomerService {
   }
 
   getCustomerById(custId: number) {
-    this.http.get<any>(`${this.localHost}/${custId}`, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    console.log(headers)
+    this.http.get<any>(`${this.localHost}/${custId}`, { headers, observe: 'response' })
       .subscribe(data => {
-        console.log("hi");
         let details = data.body;
         this.customerRaw = new Customer(details.custId, details.name, details.address, details.email);
         this.customerSubject.next(this.customerRaw);
@@ -49,7 +58,8 @@ export class CustomerService {
   }
 
   createCustomer(customer: Customer) {
-    this.http.post<any>(this.localHost, customer, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.post<any>(this.localHost, customer, { headers, observe: 'response' })
       .subscribe(data => {
         console.log(data);
       });

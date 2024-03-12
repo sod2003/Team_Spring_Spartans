@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment.production';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserLogin } from '../../models/user-login';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +16,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginUrl = environment.loginUrl;
-
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    private router: Router
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-
   }
 
   loginForm: FormGroup = this.formBuilder.group({
@@ -35,12 +34,9 @@ export class LoginComponent implements OnInit {
   });
 
   login() {
-    this.httpClient.post<any>(this.loginUrl, this.loginForm.value, { observe: 'response' })
-      .subscribe(
-        data => {
-          this.router.navigate(["customers/" + data.body.custId]);
-        });
+    this.authService.login(this.loginForm);
   }
+
 
 
 }
