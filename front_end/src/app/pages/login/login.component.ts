@@ -14,9 +14,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  baseUrl = "http://localhost:8080";
-  url = "http://localhost:8080/login";
-  encodingKey = environment.encodingKey;
+  loginUrl = environment.loginUrl;
+  customersUrl = environment.customersUrl;
   private userLogin = new UserLogin("", "");
 
   constructor(
@@ -44,13 +43,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(userLogin: UserLogin) {
-    this.httpClient.post<any>(this.url, userLogin, { observe: 'response' })
+    this.httpClient.post<any>(this.loginUrl, userLogin, { observe: 'response' })
       .subscribe({
         next: data => {
-          this.router.navigate([this.baseUrl + data.body.custId]);
+          this.router.navigate([this.customersUrl + data.body.custId]);
         },
         error: err => console.log(err),
-        complete: () => console.log('POST request complete!')
+        complete: () => console.log('Login Success!')
       });
   }
 

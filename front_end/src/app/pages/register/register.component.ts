@@ -14,9 +14,8 @@ import { UserRegister } from '../../models/user-register';
 })
 export class RegisterComponent implements OnInit {
 
-  baseUrl = "http://localhost:8080";
-  url = "http://localhost:8080/register";
-  encodingKey = environment.encodingKey;
+  registerUrl = environment.registerUrl;
+  loginUrl = environment.loginUrl;
   private userRegister = new UserRegister("", "", "", "", "");
 
   constructor(
@@ -48,7 +47,7 @@ export class RegisterComponent implements OnInit {
   });
 
   register(userRegister: UserRegister) {
-    this.httpClient.post<any>(this.url, userRegister, { observe: 'response' })
+    this.httpClient.post<any>(this.registerUrl, userRegister, { observe: 'response' })
       .subscribe({
         next: data => {
           this.userRegister = new UserRegister(
@@ -58,7 +57,7 @@ export class RegisterComponent implements OnInit {
             this.registerForm.get("username")?.value!,
             this.registerForm.get("password")?.value!
             );
-          this.router.navigate([this.baseUrl + data.body.custId]);
+          this.router.navigate([this.loginUrl]);
         },
         error: err => console.log(err),
         complete: () => console.log('Registered Successfully!')
