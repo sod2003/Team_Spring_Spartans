@@ -2,7 +2,7 @@
 
 <div class="card float-end position-absolute top-0 end-0" style="width: 20rem; height: 25rem; margin-top: 8rem;">
     <div class="card-body">
-
+        <h4>Shopping Cart</h4>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -17,7 +17,14 @@
                         <td>${{ phonePlan.cost }}</td>
                     </tr> 
                 </ng-container>
+                <ng-container *ngFor="let device of devices">
+                    <tr>
+                        <td>{{ device.brand }} {{ device.name }}</td>
+                        <td>${{ device.price }}</td>
+                    </tr> 
+                </ng-container>
             </tbody>
+            <strong>Your total bill is: ${{ this.calculateTotalBill() }}</strong>
         </table>
     </div>
 </div>

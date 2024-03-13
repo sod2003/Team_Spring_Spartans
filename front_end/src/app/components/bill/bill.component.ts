@@ -6,6 +6,7 @@ import { DeviceService } from '../../services/device.service';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../models/customer';
+import { PhonelineService } from '../../services/phoneline.service';
 
 @Component({
   selector: 'app-bill',
@@ -23,7 +24,7 @@ export class BillComponent {
   constructor(
     private customerService: CustomerService,
     private phonePlanService: PhonePlanService,
-    private deviceService: DeviceService
+    private phonelineService: PhonelineService
   ) { }
 
   ngOnInit(): void {
@@ -33,9 +34,21 @@ export class BillComponent {
     this.phonePlanService.phonePlansObservable.subscribe((data) => {
       this.phonePlans = data;
     });
-    this.deviceService.devicesObservable.subscribe((data) => {
+    this.phonelineService.devicesOfCustObservable.subscribe((data) => {
       this.devices = data;
     });
   }
+
+  calculateTotalBill(): any {
+    let totalBill = 0;
+    for (let phonePlan of this.phonePlans) {
+      totalBill = totalBill + phonePlan.cost;
+    }
+    for (let device of this.devices) {
+      totalBill = totalBill + device.price;
+    }
+    return totalBill;
+  }
+
 
 }
