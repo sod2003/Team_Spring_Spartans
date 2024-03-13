@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 import { PhonePlanService } from '../../services/phone-plan.service';
 import { Customer } from '../../models/customer';
+import { PhoneLinesComponent } from '../../components/phone-lines/phone-lines.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BillComponent],
+  imports: [BillComponent, PhoneLinesComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

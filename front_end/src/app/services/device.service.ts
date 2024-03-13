@@ -16,6 +16,11 @@ export class DeviceService {
   devicesSubject = new BehaviorSubject<Device[]>([]);
   devicesObservable = this.devicesSubject.asObservable();
 
+  // All Devices of Current Customer
+  devicesOfCustRaw: Device[] = [];
+  devicesOfCustSubject = new BehaviorSubject<Device[]>([]);
+  devicesOfCustObservable = this.devicesOfCustSubject.asObservable();
+
   constructor(
     private http: HttpClient,
     private authService: AuthService
@@ -42,11 +47,19 @@ export class DeviceService {
       });
   }
 
-  getDeviceById(deviceId: number) {
-    this.http.get<any>(`${this.localHost}/${deviceId}`, { observe: 'response' })
-      .subscribe(data => {
-        console.log(data);
-      })
+  getDeviceById(deviceId: number): any {
+    let device: any;
+    const headers = this.authService.getHeader();
+    this.http.get<any>(`${this.localHost}/${deviceId}`, { headers, observe: 'response' })
+    .subscribe(data => {
+      this.devicesOfCustRaw = [];
+      for (let device of data.body) {
+        device = new Device(device.deviceId, device.name, device.brand, device.price)
+        this.devicesOfCustRaw.push(device);
+      }
+      this.devicesOfCustSubject.next(this.devicesOfCustRaw);
+    });
+    return device
   }
 
   updateDevice(deviceId: number, device: Device) {
