@@ -14,22 +14,27 @@ import { Phoneline } from '../../models/phoneline';
 export class PhoneLinesComponent implements OnInit {
 
   @Input() custId: number = 0;
-  devices: Device[] = [];
   phonelines: Phoneline[] = [];
+  devices: Device[] = [];
 
-  constructor(private deviceService: DeviceService, private phonelineService: PhonelineService) {}
+  constructor(
+    private deviceService: DeviceService,
+    private phonelineService: PhonelineService
+  ) { }
 
   ngOnInit(): void {
-      this.deviceService.devicesObservable.subscribe((data) => {
-        this.devices = data;
-      });
-      this.phonelineService.allPhonelines.subscribe((data) => {
-        this.phonelines = data;
-      });
+    this.deviceService.getAllDevices();
+    this.phonelineService.getAllPhonelines(this.custId);
+    this.phonelineService.allPhonelines.subscribe((data) => {
+      this.phonelines = data;
+    });
+    this.deviceService.devicesObservable.subscribe((data) => {
+      this.devices = data;
+    });
   }
 
   addPhoneline() {
-    this.phonelineService.createPhoneline(this.custId, newPhonelineDialogue());
+    this.phonelineService.createPhoneline(this.custId, this.newPhonelineDialogue());
   }
 
   removePhoneline(phoneline: Phoneline, index: number) {
@@ -37,10 +42,16 @@ export class PhoneLinesComponent implements OnInit {
     this.phonelines.splice(index, 1);
     // this.phonelineService.deleteById(custId, phoneline.phoneNumber); // This will call the endpoint to delete this phone line from the customer account.
   }
-}
 
-function newPhonelineDialogue(): Phoneline {
-  // TODO Implement newPhonelineDialogue
-  throw new Error('Function not implemented.');
-}
+  retrieveCustomerDevice(deviceId: number) {
+    return this.devices.at(deviceId - 1);
+  } 
 
+  newPhonelineDialogue(): Phoneline {
+    let last4 = Number.parseInt(this.phonelines.at(-1)!.phoneNumber.slice(8)) + 1;
+    let number = "404-433-" + last4;
+    // This is where I'd assign a device, but we don't have a device purchase dialogue.
+    let phone: Phoneline = new Phoneline(number, 1);
+    return phone;
+  }
+}
