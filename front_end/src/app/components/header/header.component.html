@@ -9,7 +9,7 @@
         <a href="/login">Login/Register</a>
     </ng-container>
     <ng-container *ngIf="customer.getCustId() !== 0">
-        <a href="/logout">Logout</a>
+        <a href="" (click)="logout()">Logout</a>
     </ng-container>
 
 </header>

@@ -20,7 +20,8 @@ export class DashboardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     private phonePlanService: PhonePlanService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     console.log(this.activatedRoute.snapshot.params["custId"])

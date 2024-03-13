@@ -3,7 +3,6 @@ import { Customer } from '../models/customer';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
 import { UserLogin } from '../models/user-login';
-import { LoginComponent } from '../pages/login/login.component';
 import { AuthService } from './auth.service';
 
 @Injectable({

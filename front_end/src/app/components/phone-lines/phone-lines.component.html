@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (phoneline in phoneLines; track phoneline; let i = $index) {
+        @for (phoneline of phonelines; track phoneline; let i = $index) {
             <tr>
                 <th scope="row">{{ phoneline.phoneNumber }}</th>
                 <td>{{ phoneline.deviceId }}</td>
