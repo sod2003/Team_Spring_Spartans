@@ -5,20 +5,20 @@ SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE spartan.customer_plan;
 TRUNCATE spartan.phone_plan;
 TRUNCATE spartan.phone_line;
-TRUNCATE spartan.customer;
+-- TRUNCATE spartan.customer;
 TRUNCATE spartan.device;
-TRUNCATE spartan.user;
+-- TRUNCATE spartan.user_entity;
 
 -- Enabling Foreign Key Constraint checks so that MySQL will operate normally.
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- Populating tables with fresh test data
-INSERT INTO spartan.customer (name, address, email, archived)
-VALUES
-("Sean", "123 Peachtree Street", "sean@spartanwireless.com", 0),
-("Matt", "456 Peachtree Road", "matt@spartanwireless.com", 0), 
-("Carlos", "789 Peachtree Avenue", "carlos@spartanwireless.com", 0),
-("Sam", "1010 Piedmont Street", "sam@spartanwireless.com", 0);
+-- INSERT INTO spartan.customer (name, address, email, archived)
+-- VALUES
+-- ("Sean", "123 Peachtree Street", "sean@spartanwireless.com", 0),
+-- ("Matt", "456 Peachtree Road", "matt@spartanwireless.com", 0), 
+-- ("Carlos", "789 Peachtree Avenue", "carlos@spartanwireless.com", 0),
+-- ("Sam", "1010 Piedmont Street", "sam@spartanwireless.com", 0);
 
 INSERT INTO spartan.phone_plan (cost, data_limit, phone_lines, phone_plan_id)
 VALUES
@@ -47,8 +47,8 @@ VALUES
 (3, 2, "678-867-5311"),
 (4, 1, "678-867-5312");
 
-INSERT INTO spartan.user ()
-VALUES
-(1, "seanone", "sean"),
-(3, "carlostwo", "carlos"),
-(4, "samthree", "sam");
+-- INSERT INTO spartan.user_entity ()
+-- VALUES
+-- (1, "seanone", "sean"),
+-- (3, "carlostwo", "carlos"),
+-- (4, "samthree", "sam");
