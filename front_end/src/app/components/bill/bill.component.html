@@ -1,41 +1,23 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Lines</th>
-            <th scope="col">Data Limit</th>
-            <th scope="col">Cost</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let phonePlan of phonePlans">
-            <tr>
-                <th scope="row">{{ phonePlan.phonePlanId }}</th>
-                <td>{{ phonePlan.phoneLines }}</td>
-                <td>{{ phonePlan.dataLimit }}</td>
-                <td>${{ phonePlan.cost }}</td>
-            </tr>
-        </ng-container>
-    </tbody>
-</table>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Brand</th>
-            <th scope="col">Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let device of devices">
-            <tr>
-                <th scope="row">{{ device.deviceId }}</th>
-                <td>{{ device.name }}</td>
-                <td>{{ device.brand }}</td>
-                <td>${{ device.price }}</td>
-            </tr>
-        </ng-container>
-    </tbody>
-</table>
+
+<div class="card float-end position-absolute top-0 end-0" style="width: 20rem; height: 25rem; margin-top: 8rem;">
+    <div class="card-body">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let device of devicesOfCust">
+                    <tr>
+                        <td>{{ device.brand }} {{ device.name }}</td>
+                        <td>${{ device.price }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
