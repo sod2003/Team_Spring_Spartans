@@ -11,6 +11,11 @@
                 </tr>
             </thead>
             <tbody>
+                <ng-container *ngFor="let phonePlan of phonePlans">
+                    <tr>
+                        <td>{{ phonePlan.phoneLines }}-line {{ phonePlan.dataLimit }}gb</td>
+                        <td>${{ phonePlan.cost }}</td>
+                    </tr> 
                 <ng-container *ngFor="let device of devicesOfCust">
                     <tr>
                         <td>{{ device.brand }} {{ device.name }}</td>
