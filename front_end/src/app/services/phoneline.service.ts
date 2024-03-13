@@ -16,14 +16,14 @@ export class PhonelineService {
 
   constructor(private http: HttpClient) {}
 
-  createPhoneline(custId: string, phoneline: Phoneline) {
+  createPhoneline(custId: number, phoneline: Phoneline) {
     this.http.post<any>(`${this.localHost}/${custId}/lines`, phoneline, { observe: 'response' })
     .subscribe(data => {
       console.log(data);
     });
   }
 
-  getAllPhonelines(custId: string) {
+  getAllPhonelines(custId: number) {
     this.http.get<any>(`${this.localHost}/${custId}/lines`, { observe: 'response' })
     .subscribe(data => {
 
@@ -39,14 +39,14 @@ export class PhonelineService {
     });
   }
   
-  getPhonelineById(custId: string, phoneNumber: string) {
+  getPhonelineById(custId: number, phoneNumber: string) {
     this.http.get<any>(`${this.localHost}/${custId}/lines/${phoneNumber}`, { observe: 'response' })
     .subscribe(data => {
       console.log(data);
     });
   }
 
-  deleteById(custId: string, phoneNumber: string) {
+  deleteById(custId: number, phoneNumber: string) {
     this.http.delete<any>(`${this.localHost}/${custId}/lines/${phoneNumber}`, { observe: 'response' })
     .subscribe(data => {
       console.log(data);
