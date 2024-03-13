@@ -3,23 +3,19 @@ import { DeviceService } from '../../services/device.service';
 import { PhonelineService } from '../../services/phoneline.service';
 import { Device } from '../../models/device';
 import { Phoneline } from '../../models/phoneline';
-import { CommonModule } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-phone-lines',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './phone-lines.component.html',
   styleUrl: './phone-lines.component.css'
 })
 export class PhoneLinesComponent implements OnInit {
 
   @Input() custId: number = 0;
-  devicesOfCustRaw: Device[] = [];
-  devicesOfCustSubject = new BehaviorSubject<Device[]>([]);
-  devicesOfCustObservable = this.devicesOfCustSubject.asObservable();
   phonelines: Phoneline[] = [];
+  devices: Device[] = [];
 
   constructor(
     private deviceService: DeviceService,
@@ -27,20 +23,18 @@ export class PhoneLinesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDevicesOfCust();
+    this.deviceService.getAllDevices();
+    this.phonelineService.getAllPhonelines(this.custId);
     this.phonelineService.allPhonelines.subscribe((data) => {
       this.phonelines = data;
     });
-  }
-
-  getDevicesOfCust() {
-    for (let phoneline of this.phonelines) {
-      this.devicesOfCustRaw.push(this.deviceService.getDeviceById(phoneline.deviceId));
-    }
+    this.deviceService.devicesObservable.subscribe((data) => {
+      this.devices = data;
+    });
   }
 
   addPhoneline() {
-    this.phonelineService.createPhoneline(this.custId, newPhonelineDialogue());
+    this.phonelineService.createPhoneline(this.custId, this.newPhonelineDialogue());
   }
 
   removePhoneline(phoneline: Phoneline, index: number) {
@@ -48,10 +42,16 @@ export class PhoneLinesComponent implements OnInit {
     this.phonelines.splice(index, 1);
     // this.phonelineService.deleteById(custId, phoneline.phoneNumber); // This will call the endpoint to delete this phone line from the customer account.
   }
-}
 
-function newPhonelineDialogue(): Phoneline {
-  // TODO Implement newPhonelineDialogue
-  throw new Error('Function not implemented.');
-}
+  retrieveCustomerDevice(deviceId: number) {
+    return this.devices.at(deviceId - 1);
+  } 
 
+  newPhonelineDialogue(): Phoneline {
+    let last4 = Number.parseInt(this.phonelines.at(-1)!.phoneNumber.slice(8)) + 1;
+    let number = "404-433-" + last4;
+    // This is where I'd assign a device, but we don't have a device purchase dialogue.
+    let phone: Phoneline = new Phoneline(number, 1);
+    return phone;
+  }
+}
