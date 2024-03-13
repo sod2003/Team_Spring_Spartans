@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { environment } from '../../../environments/environment.production';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { UserLogin } from '../../models/user-login';
-import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
