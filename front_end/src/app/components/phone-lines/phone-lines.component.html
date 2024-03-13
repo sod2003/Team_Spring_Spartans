@@ -1,19 +1,23 @@
-<button (click)="addPhoneline()">Add</button>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Device ID</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (phoneline of phonelines; track phoneline; let i = $index) {
-            <tr>
-                <th scope="row">{{ phoneline.phoneNumber }}</th>
-                <td>{{ phoneline.deviceId }}</td>
-                <td><button (click)="removePhoneline(this.phoneline, i)">X</button></td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card" style="width: 30rem; height: 20rem;">
+    <div class="card-body">
+        <button (click)="addPhoneline()">Add</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Device ID</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (phoneline of phonelines; track phoneline; let i = $index) {
+                <tr>
+                    <th scope="row">{{ phoneline.phoneNumber }}</th>
+                    <td>{{ phoneline.deviceId }}</td>
+                    <td><button (click)="removePhoneline(phoneline, i)">X</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
