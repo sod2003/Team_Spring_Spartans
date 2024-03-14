@@ -32,4 +32,5 @@ public class LoginController {
         Long custId = userRepository.findById(loginRequestDto.getUsername()).get().getCustomer().getCustId();
         return new ResponseEntity<>(new LoginResponseDto(loginRequestDto.getUsername(), custId), HttpStatus.OK);
     }
+
 }
