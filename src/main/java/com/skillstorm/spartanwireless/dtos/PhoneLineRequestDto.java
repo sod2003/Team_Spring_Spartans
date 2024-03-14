@@ -9,7 +9,6 @@ import lombok.Setter;
 @Builder
 public class PhoneLineRequestDto {
     
-    private String phoneNumber;
     private Long deviceId;
 
 }

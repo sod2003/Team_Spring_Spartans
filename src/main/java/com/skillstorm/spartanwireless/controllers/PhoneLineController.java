@@ -26,9 +26,10 @@ public class PhoneLineController {
     @Autowired
     private PhoneLineService phoneLineService;
 
+    // Configuring new line generator -- follow api
     @PostMapping
-    public ResponseEntity<PhoneLineResponseDto> createPhoneLine(@PathVariable Long custId, @RequestBody PhoneLineRequestDto phoneLineRequestDto) {
-        return new ResponseEntity<>(phoneLineService.createPhoneLine(custId, phoneLineRequestDto), HttpStatus.CREATED);
+    public ResponseEntity<PhoneLineResponseDto> createPhoneLine(@PathVariable Long custId, @RequestBody Long deviceId) {
+        return new ResponseEntity<>(phoneLineService.createPhoneLine(custId, deviceId), HttpStatus.CREATED);
     }
 
     @GetMapping
