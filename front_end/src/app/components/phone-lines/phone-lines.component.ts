@@ -5,11 +5,12 @@ import { Device } from '../../models/device';
 import { Phoneline } from '../../models/phoneline';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { PhoneNumberFormatterPipe } from '../../pipes/phone-number-formatter.pipe';
 
 @Component({
   selector: 'app-phone-lines',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PhoneNumberFormatterPipe],
   templateUrl: './phone-lines.component.html',
   styleUrl: './phone-lines.component.css'
 })

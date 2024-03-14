@@ -30,7 +30,7 @@ export class DevicesComponent implements OnInit {
   }
 
   addPhoneline(deviceId: number) {
-    this.phonelineService.addPhoneline(this.activatedRoute.snapshot.params["custId"], deviceId);
+    this.phonelineService.createPhoneline(this.activatedRoute.snapshot.params["custId"], deviceId);
     location.reload();
   }
 
