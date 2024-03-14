@@ -1,6 +1,8 @@
-<div class="card float-end position-absolute top-0 end-0" style="width: 20rem; height: 25rem; margin-top: 8rem;">
-    <div class="card-body">
 
+
+<div class="card float-end position-absolute top-0 end-0" style="width: 20rem; height: 25rem; margin-top: 8rem; overflow-y: scroll;">
+    <div class="card-body">
+        <h4>Shopping Cart</h4>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -13,15 +15,16 @@
                     <tr>
                         <td>{{ phonePlan.phoneLines }}-line {{ phonePlan.dataLimit }}gb</td>
                         <td>${{ phonePlan.cost }}</td>
-                    </tr>
+                    </tr> 
                 </ng-container>
-                <ng-container *ngFor="let device of devicesOfCust">
+                <ng-container *ngFor="let device of devices">
                     <tr>
                         <td>{{ device.brand }} {{ device.name }}</td>
                         <td>${{ device.price }}</td>
-                    </tr>
+                    </tr> 
                 </ng-container>
             </tbody>
+            <strong>Your total bill is: ${{ this.calculateTotalBill() }}</strong>
         </table>
     </div>
 </div>
