@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
     this.customerService.getCustomerById(this.activatedRoute.snapshot.params["custId"]);
     this.phonePlanService.getAllPhonePlansByCustId(this.activatedRoute.snapshot.params["custId"]);
     this.phonelineService.getAllPhonelinesOfCust(this.activatedRoute.snapshot.params["custId"]);
+    this.phonelineService.getAllPhonelines(this.activatedRoute.snapshot.params["custId"]);
 
     this.customerService.customerObservable.subscribe((data) => {
       this.customer = data;

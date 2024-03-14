@@ -1,23 +1,34 @@
-<div class="card" style="width: 30rem; height: 20rem;">
-    <div class="card-body">
-        <button (click)="addPhoneline()">Add</button>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Device ID</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (phoneline of phonelines; track phoneline; let i = $index) {
-                <tr>
-                    <th scope="row">{{ phoneline.phoneNumber }}</th>
-                    <td>{{ phoneline.deviceId }}</td>
-                    <td><button (click)="removePhoneline(phoneline, i)">X</button></td>
-                </tr>
-                }
-            </tbody>
-        </table>
+
+
+<p class="d-inline-flex gap-1">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      My Phone Lines
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card" style="width: 50rem; height: 20rem;">
+        <div class="card-body">
+            <button (click)="addPhoneline()">Add Line</button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Device ID</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (phoneline of phonelines; track phoneline; let i = $index) {
+                    <tr>
+                        <th scope="row">{{ phoneline.phoneNumber }}</th>
+                        <td>{{ phoneline.deviceId }}</td>
+                        <td><button (click)="removePhoneline(phoneline, i)">X</button></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+    
+  </div>
+

@@ -14,7 +14,7 @@ export class PhonelineService {
 
   phonelinesRaw: Phoneline[] = [];
   phonelinesSubject = new BehaviorSubject<Phoneline[]>([]);
-  allPhonelines = this.phonelinesSubject.asObservable();
+  phonelinesObservable = this.phonelinesSubject.asObservable();
 
   devicesOfCustRaw: Device[] = [];
   devicesOfCustSubject = new BehaviorSubject<Device[]>([]);
@@ -33,7 +33,8 @@ export class PhonelineService {
   }
 
   getAllPhonelines(custId: number) {
-    this.http.get<any>(`${this.localHost}/${custId}/lines`, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.get<any>(`${this.localHost}/${custId}/lines`, { headers, observe: 'response' })
       .subscribe(data => {
 
         this.phonelinesRaw = [];
@@ -74,7 +75,8 @@ export class PhonelineService {
   }
 
   deleteById(custId: number, phoneNumber: string) {
-    this.http.delete<any>(`${this.localHost}/${custId}/lines/${phoneNumber}`, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.delete<any>(`${this.localHost}/${custId}/lines/${phoneNumber}`, { headers, observe: 'response' })
       .subscribe(data => {
         console.log(data);
       });
