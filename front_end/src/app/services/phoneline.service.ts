@@ -4,6 +4,9 @@ import { Phoneline } from '../models/phoneline';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Device } from '../models/device';
 import { AuthService } from './auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+import { CustomerService } from './customer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +23,18 @@ export class PhonelineService {
   devicesOfCustSubject = new BehaviorSubject<Device[]>([]);
   devicesOfCustObservable = this.devicesOfCustSubject.asObservable();
 
+  custRaw: Device[] = [];
+  custSubject = new BehaviorSubject<Device[]>([]);
+  custObservable = this.devicesOfCustSubject.asObservable();
+
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) { }
 
   createPhoneline(custId: number, phoneline: Phoneline) {
-    this.http.post<any>(`${this.localHost}/${custId}/lines`, phoneline, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.post<any>(`${this.localHost}/${custId}/lines`, phoneline, { headers, observe: 'response' })
       .subscribe(data => {
         console.log(data);
       });
@@ -81,4 +89,18 @@ export class PhonelineService {
         console.log(data);
       });
   }
+
+
+  addPhoneline(custId: number, deviceId: number) {
+    this.createPhoneline(custId, this.newPhonelineDialogue(deviceId));
+  }
+
+  newPhonelineDialogue(deviceId: number): Phoneline {
+    let last4 = Number.parseInt(this.phonelinesRaw.at(-1)!.phoneNumber.slice(8)) + 1;
+    let number = "404-433-" + last4;
+    // This is where I'd assign a device, but we don't have a device purchase dialogue.
+    let phone: Phoneline = new Phoneline(number, deviceId);
+    return phone;
+  }
+
 }

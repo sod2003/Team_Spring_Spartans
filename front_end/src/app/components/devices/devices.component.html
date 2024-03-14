@@ -1,20 +1,33 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Brand</th>
-            <th scope="col">Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let device of devices">
-            <tr>
-                <th scope="row">{{ device.deviceId }}</th>
-                <td>{{ device.name }}</td>
-                <td>{{ device.brand }}</td>
-                <td>${{ device.price }}</td>
-            </tr>
-        </ng-container>
-    </tbody>
-</table>
+<p class="d-inline-flex gap-1">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1"
+        aria-expanded="false" aria-controls="collapseExample">
+        Purchase a Device
+    </button>
+</p>
+<div class="collapse" id="collapseExample1">
+    <div class="card" style="width: 50rem; height: 30rem;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Purchase</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let device of devices">
+                    <tr>
+                        <th scope="row">{{ device.deviceId }}</th>
+                        <td>{{ device.name }}</td>
+                        <td>{{ device.brand }}</td>
+                        <td>${{ device.price }}</td>
+                        <td><button (click)="this.addPhoneline(device.deviceId)">Add to cart!</button></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+</div>

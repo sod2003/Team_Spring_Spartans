@@ -15,8 +15,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PhoneLinesComponent implements OnInit {
 
-  @Input() custId: number = 0;
-  deviceId: number = 0;
   phonelines: Phoneline[] = [];
   devices: Device[] = [];
 
@@ -37,10 +35,6 @@ export class PhoneLinesComponent implements OnInit {
 
   }
 
-  addPhoneline() {
-    this.phonelineService.createPhoneline(this.activatedRoute.snapshot.params["custId"], this.newPhonelineDialogue());
-  }
-
   removePhoneline(phoneline: Phoneline, index: number) {
     console.log(phoneline);
     this.phonelines.splice(index, 1);
@@ -51,11 +45,5 @@ export class PhoneLinesComponent implements OnInit {
     return this.devices.at(deviceId - 1);
   } 
 
-  newPhonelineDialogue(deviceId: number): Phoneline {
-    let last4 = Number.parseInt(this.phonelines.at(-1)!.phoneNumber.slice(8)) + 1;
-    let number = "404-433-" + last4;
-    // This is where I'd assign a device, but we don't have a device purchase dialogue.
-    let phone: Phoneline = new Phoneline(number, deviceId);
-    return phone;
-  }
+
 }

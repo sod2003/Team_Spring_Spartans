@@ -6,11 +6,12 @@ import { PhonePlanService } from '../../services/phone-plan.service';
 import { Customer } from '../../models/customer';
 import { PhonelineService } from '../../services/phoneline.service';
 import { PhoneLinesComponent } from '../../components/phone-lines/phone-lines.component';
+import { DevicesComponent } from '../../components/devices/devices.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BillComponent, PhoneLinesComponent],
+  imports: [BillComponent, PhoneLinesComponent, DevicesComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
