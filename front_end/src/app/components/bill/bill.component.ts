@@ -47,7 +47,7 @@ export class BillComponent {
     for (let device of this.devices) {
       totalBill = totalBill + device.price;
     }
-    return totalBill;
+    return totalBill.toFixed(2);
   }
 
 
