@@ -36,11 +36,11 @@ We used a various amounts of testing strategies, depending on the aspect of the 
 Lots of time needed for storming and norming, getting organized and putting processes in place were a big hurdle to the entire team working together. The use of tools helped alleviate the pain. Our team got excited for testing out new technologies, and sometimes they worked instantly, sometimes they added stressors when debugging issues while getting them integrated into the project. We had to make some difficult decisions for getting the project done, so not everything was ideal when delivered in the initial state.
 
 ## Roadmap for the Future
-[ ] - API and Backend extentions
-[ ] - Swagger integration
-[ ] - CSS Framework standardization
-[ ] - Business Logic review
-[ ] - ERD/Database Refinement
+- [ ] API and Backend extentions
+- [ ] Swagger integration
+- [ ] CSS Framework standardization
+- [ ] Business Logic review
+- [ ] ERD/Database Refinement
 
 ## Credits
 Team Members and Roles:
