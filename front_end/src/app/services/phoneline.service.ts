@@ -91,12 +91,14 @@ export class PhonelineService {
     this.createPhoneline(custId, this.newPhonelineDialogue(deviceId));
   }
 
-  newPhonelineDialogue(deviceId: number): Phoneline {
-    let last4 = Number.parseInt(this.phonelinesRaw.at(-1)!.phoneNumber.slice(8)) + 1;
-    let number = "404-433-" + last4;
-    // This is where I'd assign a device, but we don't have a device purchase dialogue.
-    let phone: Phoneline = new Phoneline(number, deviceId);
-    return phone;
+  private newPhonelineDialogue(deviceId: number): Phoneline {
+    const lastPhoneNumber = this.phonelinesSubject.value[this.phonelinesSubject.value.length - 1]?.phoneNumber;
+    let last4 = 1;
+    if (lastPhoneNumber) {
+      last4 = Number.parseInt(lastPhoneNumber.slice(8)) + 1;
+    }
+    const number = `404-433-${last4}`;
+    return new Phoneline(number, deviceId);
   }
 
 }
