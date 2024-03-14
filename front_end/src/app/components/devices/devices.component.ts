@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Device } from '../../models/device';
 import { DeviceService } from '../../services/device.service';
 import { CommonModule } from '@angular/common';
 import { PhonelineService } from '../../services/phoneline.service';
-import { PhoneLinesComponent } from '../phone-lines/phone-lines.component';
 import { ActivatedRoute } from '@angular/router';
+import { PhonePlan } from '../../models/phone-plan';
 
 @Component({
   selector: 'app-devices',
@@ -16,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DevicesComponent implements OnInit {
 
   devices: Device[] = [];
+  @Input() phonePlans: PhonePlan[] = [];
+  lines: number = 0;
 
   constructor(
     private deviceService: DeviceService,
@@ -27,6 +29,9 @@ export class DevicesComponent implements OnInit {
     this.deviceService.devicesObservable.subscribe((data) => {
       this.devices = data;
     });
+    this.phonelineService.devicesOfCustObservable.subscribe((data) => {
+      this.lines = data.length;
+    });
   }
 
   addPhoneline(deviceId: number) {
@@ -34,4 +39,12 @@ export class DevicesComponent implements OnInit {
     location.reload();
   }
 
+  maxLines() {
+    let totalLines = 0;
+    if (this.phonePlans == null) return false;
+    for (let plan of this.phonePlans) {
+      totalLines += plan.phoneLines;
+    }
+    return this.lines < totalLines;
+  }
 }
