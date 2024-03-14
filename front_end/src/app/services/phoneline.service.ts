@@ -23,10 +23,6 @@ export class PhonelineService {
   devicesOfCustSubject = new BehaviorSubject<Device[]>([]);
   devicesOfCustObservable = this.devicesOfCustSubject.asObservable();
 
-  custRaw: Device[] = [];
-  custSubject = new BehaviorSubject<Device[]>([]);
-  custObservable = this.devicesOfCustSubject.asObservable();
-
   constructor(
     private http: HttpClient,
     private authService: AuthService

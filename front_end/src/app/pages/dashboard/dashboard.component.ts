@@ -8,6 +8,7 @@ import { PhonelineService } from '../../services/phoneline.service';
 import { PhoneLinesComponent } from '../../components/phone-lines/phone-lines.component';
 import { DevicesComponent } from '../../components/devices/devices.component';
 import { PhonePlansComponent } from '../../components/phone-plans/phone-plans.component';
+import { PhonePlansBuyComponent } from '../../components/phone-plans-buy/phone-plans-buy.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,8 @@ import { PhonePlansComponent } from '../../components/phone-plans/phone-plans.co
     BillComponent,
     PhoneLinesComponent,
     DevicesComponent,
-    PhonePlansComponent
+    PhonePlansComponent,
+    PhonePlansBuyComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

@@ -38,7 +38,9 @@ export class PhoneLinesComponent implements OnInit {
   removePhoneline(phoneline: Phoneline, index: number) {
     console.log(phoneline);
     this.phonelines.splice(index, 1);
-    this.phonelineService.deleteById(this.activatedRoute.snapshot.params["custId"], phoneline.phoneNumber); // This will call the endpoint to delete this phone line from the customer account.
+    // This will call the endpoint to delete this phone line from the customer account.
+    this.phonelineService.deleteById(this.activatedRoute.snapshot.params["custId"], phoneline.phoneNumber); 
+    location.reload();
   }
 
   retrieveCustomerDevice(deviceId: number) {

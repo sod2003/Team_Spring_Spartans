@@ -3,6 +3,7 @@ import { Customer } from '../../models/customer';
 import { CustomerService } from '../../services/customer.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
