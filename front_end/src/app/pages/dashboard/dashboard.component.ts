@@ -9,6 +9,7 @@ import { PhoneLinesComponent } from '../../components/phone-lines/phone-lines.co
 import { DevicesComponent } from '../../components/devices/devices.component';
 import { PhonePlansComponent } from '../../components/phone-plans/phone-plans.component';
 import { PhonePlansBuyComponent } from '../../components/phone-plans-buy/phone-plans-buy.component';
+import { PhonePlan } from '../../models/phone-plan';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,6 +27,8 @@ import { PhonePlansBuyComponent } from '../../components/phone-plans-buy/phone-p
 export class DashboardComponent implements OnInit {
 
   customer: Customer = new Customer(0, "", "", "");
+
+  phonePlans: PhonePlan[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -45,7 +48,10 @@ export class DashboardComponent implements OnInit {
     this.customerService.customerObservable.subscribe((data) => {
       this.customer = data;
       console.log(this.customer);
-    })
+    });
+    this.phonePlanService.phonePlansObservable.subscribe((data) => {
+      this.phonePlans = data;
+    });
   }
 
 }

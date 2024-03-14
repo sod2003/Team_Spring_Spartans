@@ -45,8 +45,8 @@ export class PhoneLinesComponent implements OnInit {
   }
 
   retrieveCustomerDevice(deviceId: number) {
-    return this.devices.at(deviceId - 1);
-  } 
+    return this.devices.at(deviceId - 1)?.name;
+  }
 
 
 }

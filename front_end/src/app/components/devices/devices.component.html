@@ -23,7 +23,7 @@
                         <td>{{ device.name }}</td>
                         <td>{{ device.brand }}</td>
                         <td>${{ device.price }}</td>
-                        <td><button (click)="this.addPhoneline(device.deviceId)">Add to cart!</button></td>
+                        @if (this.maxLines()) {<td><button (click)="this.addPhoneline(device.deviceId)">Add to cart!</button></td>}
                     </tr>
                 </ng-container>
             </tbody>

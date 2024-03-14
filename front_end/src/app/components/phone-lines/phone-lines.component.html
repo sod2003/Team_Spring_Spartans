@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Phone Number</th>
-                        <th scope="col">Device ID</th>
+                        <th scope="col">Device</th>
                         <th scope="col">Remove Line</th>
                     </tr>
                 </thead>
@@ -19,7 +19,7 @@
                     @for (phoneline of phonelines; track phoneline; let i = $index) {
                     <tr>
                         <th scope="row">{{ phoneline.phoneNumber | phoneNumberFormatter }}</th>
-                        <td>{{ phoneline.deviceId }}</td>
+                        <td>{{ retrieveCustomerDevice(phoneline.deviceId) }}</td>
                         <td><button (click)="removePhoneline(phoneline, i)">X</button></td>
                     </tr>
                     }
