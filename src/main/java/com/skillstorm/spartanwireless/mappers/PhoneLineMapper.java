@@ -11,7 +11,6 @@ public class PhoneLineMapper {
     public static PhoneLine mapToPhoneLine(PhoneLineRequestDto phoneLineRequestDto) {
         return PhoneLine
             .builder()
-            .phoneNumber(phoneLineRequestDto.getPhoneNumber())
             .build();
     }
     

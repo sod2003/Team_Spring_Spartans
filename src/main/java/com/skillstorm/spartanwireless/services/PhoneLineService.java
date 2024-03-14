@@ -7,7 +7,7 @@ import com.skillstorm.spartanwireless.dtos.PhoneLineResponseDto;
 
 public interface PhoneLineService {
     
-    PhoneLineResponseDto createPhoneLine(Long custId, PhoneLineRequestDto phoneLineRequestDto);
+    PhoneLineResponseDto createPhoneLine(Long custId, Long deviceId);
     List<PhoneLineResponseDto> getAllPhoneLines(Long custId);
     PhoneLineResponseDto getPhoneLineById(String phoneNumber);
     // (Comment in Controller) PhoneLineResponseDto updatePhoneLine(String phoneNumber, PhoneLineRequestDto phoneLineRequestDto);

@@ -1,6 +1,8 @@
 package com.skillstorm.spartanwireless.services.impl;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,15 @@ public class PhoneLineServiceImpl implements PhoneLineService {
     private DeviceRepository deviceRepository;
 
     @Override
-    public PhoneLineResponseDto createPhoneLine(Long custId, PhoneLineRequestDto phoneLineRequestDto) {
+    public PhoneLineResponseDto createPhoneLine(Long custId, Long deviceId) {
         Customer customer = customerRepository.findById(custId).get();
-        Device device = deviceRepository.findById(phoneLineRequestDto.getDeviceId()).get();
-        PhoneLine phoneLine = mapToPhoneLine(phoneLineRequestDto);
-        phoneLine.setCustomer(customer);
-        phoneLine.setDevice(device);
+        Device device = deviceRepository.findById(deviceId).get();
+        PhoneLine phoneLine = PhoneLine
+            .builder()
+            .phoneNumber(numberGenerator())
+            .customer(customer)
+            .device(device)
+            .build();
         return mapToPhoneLineResponseDto(phoneLineRepository.save(phoneLine));
     }
 
@@ -64,5 +69,22 @@ public class PhoneLineServiceImpl implements PhoneLineService {
     public void deletePhoneLine(String phoneNumber) {
         phoneLineRepository.deleteById(phoneNumber);
     }
+
+public String numberGenerator() {
+    Random random = new Random();
+    long phoneNumber;
+    Optional<PhoneLine> phoneLine;
+
+    do {
+        int random1 = random.nextInt(900) + 100;
+        int random2 = random.nextInt(900) + 100;
+        int random3 = random.nextInt(9000) + 1000;
+        phoneNumber = Long.parseLong("" + random1 + random2 + random3);
+        phoneLine = phoneLineRepository.findById("" + phoneNumber);
+    } while (phoneLine.isPresent());
+
+    System.out.println(phoneNumber);
+    return "" + phoneNumber;
+}
     
 }
