@@ -18,7 +18,7 @@
                 <tbody>
                     @for (phoneline of phonelines; track phoneline; let i = $index) {
                     <tr>
-                        <th scope="row">{{ phoneline.phoneNumber }}</th>
+                        <th scope="row">{{ phoneline.phoneNumber | phoneNumberFormatter }}</th>
                         <td>{{ phoneline.deviceId }}</td>
                         <td><button (click)="removePhoneline(phoneline, i)">X</button></td>
                     </tr>

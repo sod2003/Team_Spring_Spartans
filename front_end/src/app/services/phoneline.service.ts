@@ -28,9 +28,9 @@ export class PhonelineService {
     private authService: AuthService
   ) { }
 
-  createPhoneline(custId: number, phoneline: Phoneline) {
+  createPhoneline(custId: number, deviceId: number) {
     const headers = this.authService.getHeader();
-    this.http.post<any>(`${this.localHost}/${custId}/lines`, phoneline, { headers, observe: 'response' })
+    this.http.post<any>(`${this.localHost}/${custId}/lines`, deviceId, { headers, observe: 'response' })
       .subscribe(data => {
         console.log(data);
       });
@@ -87,18 +87,5 @@ export class PhonelineService {
   }
 
 
-  addPhoneline(custId: number, deviceId: number) {
-    this.createPhoneline(custId, this.newPhonelineDialogue(deviceId));
-  }
-
-  private newPhonelineDialogue(deviceId: number): Phoneline {
-    const lastPhoneNumber = this.phonelinesSubject.value[this.phonelinesSubject.value.length - 1]?.phoneNumber;
-    let last4 = 1;
-    if (lastPhoneNumber) {
-      last4 = Number.parseInt(lastPhoneNumber.slice(8)) + 1;
-    }
-    const number = `404-433-${last4}`;
-    return new Phoneline(number, deviceId);
-  }
 
 }
