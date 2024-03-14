@@ -21,7 +21,8 @@ export class PhonePlanService {
     ) {}
 
   createPhonePlan(custId: number, phonePlanId: number) {
-    this.http.post<any>(`${this.localHost}/${custId}/phone_plans/${phonePlanId}`, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.post<any>(`${this.localHost}/${custId}/phone_plans`, phonePlanId, { headers, observe: 'response' })
       .subscribe(data => {
         console.log(data);
       })
@@ -60,7 +61,8 @@ export class PhonePlanService {
   */
 
   deleteDevicePhonePlan(custId: number, phonePlanId: number) {
-    this.http.delete<any>(`${this.localHost}/${custId}/phone_plans/${phonePlanId}`, { observe: 'response' })
+    const headers = this.authService.getHeader();
+    this.http.delete<any>(`${this.localHost}/${custId}/phone_plans/${phonePlanId}`, { headers, observe: 'response' })
       .subscribe(data => {
         console.log(data);
       })
