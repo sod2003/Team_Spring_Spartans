@@ -25,6 +25,18 @@ public class CustomerServiceImpl implements CustomerService{
         customerRepository = cr;
     }
 
+    /*
+     * Type is completely known from custom mappers, 
+     * you will see that we have checked this for every
+     * api. We are suppressing warnings. The input from the
+     * request are validated, then they are funnelled through
+     * our custom wrappers that are EXPLICITYLY TYPED. Or,
+     * in the case when there are no dtos (just id's) the EXACT
+     * type from the controller down the api is ensured.
+     * For the sake of being concise, we are not using Generic
+     * types which would need explicit null checks. 
+     */
+    @SuppressWarnings("null")
     @Override
     public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
         return mapToCustomerResponseDto(customerRepository.save(mapToCustomer(customerRequestDto)));
@@ -42,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService{
         return customers.stream().map(customer -> mapToCustomerResponseDto(customer)).collect(Collectors.toList());
     }
 
+    @SuppressWarnings("null")
     @Override
     public CustomerResponseDto getCustomerById(Long custId) {
         return mapToCustomerResponseDto(customerRepository.findById(custId).get());
@@ -54,6 +67,7 @@ public class CustomerServiceImpl implements CustomerService{
         return mapToCustomerResponseDto(customerRepository.save(customer));
     }
 
+    @SuppressWarnings("null")
     @Override
     public String deleteCustomerById(Long custId) {
         Customer customer = customerRepository.findById(custId).get();

@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
 import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 import com.skillstorm.spartanwireless.dtos.RegisterRequestDto;
+import com.skillstorm.spartanwireless.exceptions.UsernameIsTakenException;
 import com.skillstorm.spartanwireless.models.UserEntity;
 import com.skillstorm.spartanwireless.repositories.UserRepository;
+
+import jakarta.validation.Valid;
 
 import static com.skillstorm.spartanwireless.mappers.CustomerMapper.mapToCustomer;
 
@@ -29,9 +32,9 @@ public class RegisterController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequestDto registerRequestDto) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterRequestDto registerRequestDto) {
         if (userRepository.existsById(registerRequestDto.getUsername())) {
-            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+            throw new UsernameIsTakenException();
         }
 
         CustomerRequestDto customerRequestDto = CustomerRequestDto

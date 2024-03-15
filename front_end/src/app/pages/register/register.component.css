@@ -20,6 +20,7 @@
     border-color: black;
 }
 
+
 /* width */
 .card::-webkit-scrollbar {
     width: 20px;

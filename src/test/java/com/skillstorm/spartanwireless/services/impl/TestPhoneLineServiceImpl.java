@@ -61,9 +61,6 @@ public class TestPhoneLineServiceImpl {
     @Autowired
     private Device device;
 
-    @Autowired
-    private PhoneLineRequestDto phoneLineRequestDto;
-
     @BeforeEach
     public void init(){
         phoneNumber = "404-687-5309";
@@ -73,7 +70,6 @@ public class TestPhoneLineServiceImpl {
         device = Device.builder().deviceId(deviceId).name("iPhone X").brand("Apple").price(999.99).build();
         phoneLine1 = PhoneLine.builder().phoneNumber("404-687-5309").customer(customer).device(Device.builder().deviceId(1L).build()).build();
         phoneLine1 = PhoneLine.builder().phoneNumber("404-687-5310").customer(customer).device(Device.builder().deviceId(2L).build()).build();
-        phoneLineRequestDto = PhoneLineRequestDto.builder().phoneNumber(phoneNumber).deviceId(deviceId).build();
     }
 
     @Test
@@ -81,7 +77,7 @@ public class TestPhoneLineServiceImpl {
         when(customerRepository.findById(custId)).thenReturn(Optional.ofNullable(customer));
         when(phoneLineRepository.save(any(PhoneLine.class))).thenReturn(phoneLine1);
         when(deviceRepository.findById(deviceId)).thenReturn(Optional.ofNullable(device));
-        PhoneLineResponseDto phoneLineResponseDto = phoneLineServiceImpl.createPhoneLine(custId, phoneLineRequestDto);
+        PhoneLineResponseDto phoneLineResponseDto = phoneLineServiceImpl.createPhoneLine(custId, deviceId);
         assertNotNull(phoneLineResponseDto);
     }
 

@@ -18,3 +18,13 @@
 .btn-light {
     border-color: black;
 }
+
+label, input {
+    display: block;
+}
+
+span {
+    font-size: small;
+    color: red;
+    font-style: italic;
+}
