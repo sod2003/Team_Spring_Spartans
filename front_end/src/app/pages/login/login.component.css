@@ -1,0 +1,20 @@
+.card {
+    background-color: #9197AE;
+    border-color: black;
+    font-family: fantasy;
+}
+
+.card input.form-control {
+    border-color: black;
+}
+
+.btn-primary {
+    background-color: #910218;
+    border-color: black;
+    -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color: black;
+}
+
+.btn-light {
+    border-color: black;
+}
