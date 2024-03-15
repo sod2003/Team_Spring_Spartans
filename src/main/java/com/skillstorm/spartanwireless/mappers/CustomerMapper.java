@@ -6,7 +6,7 @@ import com.skillstorm.spartanwireless.models.Customer;
 
 public class CustomerMapper {
     
-    public static Customer mapToCustomer( CustomerRequestDto customerRequestDto) {
+    public static Customer mapToCustomer(CustomerRequestDto customerRequestDto) {
         return Customer
             .builder()
             .name(customerRequestDto.getName())

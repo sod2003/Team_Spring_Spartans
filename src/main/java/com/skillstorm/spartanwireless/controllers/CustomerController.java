@@ -19,6 +19,8 @@ import com.skillstorm.spartanwireless.dtos.CustomerRequestDto;
 import com.skillstorm.spartanwireless.dtos.CustomerResponseDto;
 import com.skillstorm.spartanwireless.services.CustomerService;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/customers")
@@ -28,7 +30,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping
-    public CustomerResponseDto createCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
+    public CustomerResponseDto createCustomer(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
         return customerService.createCustomer(customerRequestDto);
     }
 

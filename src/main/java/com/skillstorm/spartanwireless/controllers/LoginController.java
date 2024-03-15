@@ -14,6 +14,8 @@ import com.skillstorm.spartanwireless.dtos.LoginRequestDto;
 import com.skillstorm.spartanwireless.dtos.LoginResponseDto;
 import com.skillstorm.spartanwireless.repositories.UserRepository;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin("http://localhost:4200")
 @RestController
 public class LoginController {
@@ -24,7 +26,7 @@ public class LoginController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                 loginRequestDto.getUsername(),

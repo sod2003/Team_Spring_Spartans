@@ -19,6 +19,8 @@ import com.skillstorm.spartanwireless.dtos.DeviceRequestDto;
 import com.skillstorm.spartanwireless.dtos.DeviceResponseDto;
 import com.skillstorm.spartanwireless.services.DeviceService;
 
+import jakarta.validation.Valid;
+
 /*Testing Branch */
 
 @CrossOrigin("http://localhost:4200")
@@ -30,7 +32,7 @@ public class DeviceController {
     private DeviceService deviceService;
 
     @PostMapping
-    public ResponseEntity<DeviceResponseDto> createDevice(@RequestBody DeviceRequestDto deviceRequestDto) {
+    public ResponseEntity<DeviceResponseDto> createDevice(@Valid @RequestBody DeviceRequestDto deviceRequestDto) {
         return new ResponseEntity<>(deviceService.createDevice(deviceRequestDto), HttpStatus.CREATED);
     }
 
