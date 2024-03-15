@@ -18,3 +18,18 @@
 .btn-light {
     border-color: black;
 }
+
+label, input {
+    display: block;
+
+span {
+    font-size: small;
+    color: red;
+    font-style: italic;
+    margin: 0em 0em 0em 7em;
+}
+
+.credSpan {
+    display: block;
+    margin: 0em 7em 0em 0em;
+}

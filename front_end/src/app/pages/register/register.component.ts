@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.production';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -27,35 +28,65 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup = this.formBuilder.group({
     fullName: ['', Validators.compose([
-      Validators.required
+      Validators.required,
+      Validators.minLength(5)
     ])],
     email: ['', Validators.compose([
       Validators.required,
+      Validators.minLength(5),
       Validators.email
     ])],
     address: ['', Validators.compose([
-      Validators.required
+      Validators.required,
+      Validators.minLength(5)
     ])],
     username: ['', Validators.compose([
-      Validators.required
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(20)
     ])],
     password: ['', Validators.compose([
-      Validators.required
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(20)
     ])]
   });
+
+  get fullName() {
+    return this.registerForm.get("fullName");
+  }
+
+  get email() {
+    return this.registerForm.get("email");
+  }
+  
+  get address() {
+    return this.registerForm.get("address");
+  }
+
+  get username() {
+    return this.registerForm.get("username");
+  }
+
+  get password() {
+    return this.registerForm.get("password");
+  }
 
   register() {
     this.httpClient.post<any>(this.registerUrl, this.registerForm.value, { observe: 'response' })
       .subscribe({
-        next: () => {
+        next: (response) => {
+          if (response.status === 201) {
+            this.router.navigate(["/login"]);
+          }
         },
-        error: err => {
-          console.log(err);
-          this.router.navigate(["/login"]);
+        error: (response) => {
+          if (response.status === 418) {
+            this.registerForm.get('username')?.setErrors({ taken: true });
+          }
         },
         complete: () => {
-          console.log('Registered Successfully!');
-          this.router.navigate(["/login"]);
+          console.log('Registration request completed.');
         }
       });
   }
