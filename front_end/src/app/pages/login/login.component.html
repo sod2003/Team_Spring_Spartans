@@ -5,14 +5,20 @@
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="username" class="form-control" id="username" aria-describedby="username" formControlName="username">
+                <span *ngIf="username?.invalid && (username?.touched || username?.dirty)">
+                    <span *ngIf="username!.errors?.['required']" class="credSpan">*required</span>
+                </span>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" formControlName="password">
+                <span *ngIf="password?.invalid && (password?.touched || password?.dirty)">
+                    <span *ngIf="password!.errors?.['required']" class="credSpan">*required</span>
+                </span>
             </div>
             <div class="mb-3 form-check">
             </div>
-            <button (click)="login()" class="btn btn-primary">Login</button>
+            <button (click)="login()" class="btn btn-primary" [disabled]="this.loginForm.invalid">Login</button>
             <a href="/register" class="btn btn-light" style="margin-left: 1em;">or Register</a>
         </form>
     </div>

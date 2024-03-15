@@ -1,51 +1,86 @@
-<div class="card position-absolute top-50 start-50 translate-middle" style="width: 25rem;">
+<div class="card position-absolute top-50 start-50 translate-middle"
+    style="width: 25rem; height: 25rem; margin-top: 2rem; overflow-y: scroll;">
     <div class="card-body">
         <h5 class="card-title">Account Registration</h5><br>
         <form [formGroup]="registerForm">
+            <!--FULL NAME-->
             <div class="row g-3 align-items-center" style="padding: 2px;">
                 <div class="col-auto">
                     <label for="fullName" class="col-form-label">Full Name:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="fullName" class="form-control" aria-describedby="fullName" formControlName="fullName">
+                    <input type="text" id="fullName" class="form-control" aria-describedby="fullName"
+                        formControlName="fullName">
                 </div>
+                <span *ngIf="fullName?.invalid && (fullName?.touched || fullName?.dirty)">
+                    <span *ngIf="fullName!.errors?.['required']" class="credSpan">*required</span>
+                    <span *ngIf="fullName!.errors?.['minlength']" class="credSpan">*5-character minimum</span>
+                </span>
             </div>
+            <!--EMAIL-->
             <div class="row g-3 align-items-center" style="padding: 2px;">
-                <div class="col-auto" style="margin-left: 2em;">
+                <div class="col-auto" style="margin-left: 2.1em;">
                     <label for="email" class="col-form-label">Email:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="email" id="email" class="form-control" aria-describedby="email" formControlName="email">
+                    <input type="email" id="email" class="form-control" aria-describedby="email"
+                        formControlName="email">
                 </div>
+                <span *ngIf="email?.invalid && (email?.touched || email?.dirty)">
+                    <span *ngIf="email!.errors?.['required']" class="credSpan">*required</span>
+                    <span *ngIf="email!.errors?.['minlength']" class="credSpan">*5-character minimum</span>
+                    <span *ngIf="email!.errors?.['email']" class="credSpan">*email format ex&#64;gmail.com</span>
+                </span>
             </div>
+            <!--ADDRESS-->
             <div class="row g-3 align-items-center" style="padding: 2px;">
-                <div class="col-auto" style="margin-left: 1em;">
+                <div class="col-auto" style="margin-left: .9em;">
                     <label for="address" class="col-form-label">Address:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="address" class="form-control" aria-describedby="address" formControlName="address">
+                    <input type="text" id="address" class="form-control" aria-describedby="address"
+                        formControlName="address">
                 </div>
+                <span *ngIf="address?.invalid && (address?.touched || address?.dirty)">
+                    <span *ngIf="address!.errors?.['required']" class="credSpan">*required</span>
+                    <span *ngIf="address!.errors?.['minlength']" class="credSpan">*5-character minimum</span>
+                </span>
             </div>
+            <!--USERNAME-->
             <div class="row g-3 align-items-center" style="padding: 2px;">
                 <div class="col-auto">
                     <label for="username" class="col-form-label">Username:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="username" id="username" class="form-control" aria-describedby="username" formControlName="username">
+                    <input type="username" id="username" class="form-control" aria-describedby="username"
+                        formControlName="username">
                 </div>
+                <span *ngIf="registerForm.get('username')?.hasError('taken')">The username is already taken.<br>Please
+                    choose a different one.</span>
+                <span *ngIf="username?.invalid && (username?.touched || username?.dirty)">
+                    <span *ngIf="username!.errors?.['required']" class="credSpan">*required</span>
+                    <span *ngIf="username!.errors?.['minlength']" class="credSpan">*5-character minimum</span>
+                    <span *ngIf="username!.errors?.['maxlength']" class="credSpan">*20-character maximum</span>
+                </span>
             </div>
+            <!--PASSWORD-->
             <div class="row g-3 align-items-center" style="padding: 2px;">
-                <div class="col-auto">
+                <div class="col-auto" style="margin-left: .3em;">
                     <label for="password" class="col-form-label">Password:</label>
                 </div>
                 <div class="col-auto">
-                    <input type="password" id="password" class="form-control" aria-describedby="password" formControlName="password">
+                    <input type="password" id="password" class="form-control" aria-describedby="password"
+                        formControlName="password">
                 </div>
+                <span *ngIf="password?.invalid && (password?.touched || password?.dirty)">
+                    <span *ngIf="password!.errors?.['required']" class="credSpan">*required</span>
+                    <span *ngIf="password!.errors?.['minlength']" class="credSpan">*5-character minimum</span>
+                    <span *ngIf="password!.errors?.['maxlength']" class="credSpan">*20-character maximum</span>
+                </span>
             </div>
-            
             <div class="mb-3 form-check">
             </div>
-            <button (click)="register()" class="btn btn-primary">Register</button>
+            <button (click)="register()" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
             <a href="/login" class="btn btn-light" style="margin-left: 1em;">or Login</a>
         </form>
     </div>
