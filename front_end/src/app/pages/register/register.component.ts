@@ -75,12 +75,10 @@ export class RegisterComponent implements OnInit {
   register() {
     this.httpClient.post<any>(this.registerUrl, this.registerForm.value, { observe: 'response' })
       .subscribe({
-        next: (response) => {
+        error: (response) => {
           if (response.status === 201) {
             this.router.navigate(["/login"]);
           }
-        },
-        error: (response) => {
           if (response.status === 418) {
             this.registerForm.get('username')?.setErrors({ taken: true });
           }
@@ -89,6 +87,7 @@ export class RegisterComponent implements OnInit {
           console.log('Registration request completed.');
         }
       });
+      
   }
 
 
