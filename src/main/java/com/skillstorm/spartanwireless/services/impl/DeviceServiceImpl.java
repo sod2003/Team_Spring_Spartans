@@ -15,7 +15,6 @@ import com.skillstorm.spartanwireless.services.DeviceService;
 import static com.skillstorm.spartanwireless.mappers.DeviceMapper.mapToDevice;
 import static com.skillstorm.spartanwireless.mappers.DeviceMapper.mapToDeviceResponseDto;
 
-
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
@@ -26,6 +25,18 @@ public class DeviceServiceImpl implements DeviceService {
         deviceRepository = dr;
     }
 
+    /*
+     * Type is completely known from custom mappers,
+     * you will see that we have checked this for every
+     * api. We are suppressing warnings. The input from the
+     * request are validated, then they are funnelled through
+     * our custom wrappers that are EXPLICITYLY TYPED. Or,
+     * in the case when there are no dtos (just id's) the EXACT
+     * type from the controller down the api is ensured.
+     * For the sake of being concise, we are not using Generic
+     * types which would need explicit null checks.
+     */
+    @SuppressWarnings("null")
     @Override
     public DeviceResponseDto createDevice(DeviceRequestDto deviceRequestDto) {
         return mapToDeviceResponseDto(deviceRepository.save(mapToDevice(deviceRequestDto)));
@@ -33,14 +44,17 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public List<DeviceResponseDto> getAllDevices() {
-        return deviceRepository.findAll().stream().map((device) -> mapToDeviceResponseDto(device)).collect(Collectors.toList());
+        return deviceRepository.findAll().stream().map((device) -> mapToDeviceResponseDto(device))
+                .collect(Collectors.toList());
     }
 
+    @SuppressWarnings("null")
     @Override
     public DeviceResponseDto getDeviceById(Long deviceId) {
         return mapToDeviceResponseDto(deviceRepository.findById(deviceId).get());
     }
 
+    @SuppressWarnings("null")
     @Override
     public DeviceResponseDto updateDevice(Long deviceId, DeviceRequestDto deviceRequestDto) {
         Device device = deviceRepository.findById(deviceId).get();
@@ -50,9 +64,10 @@ public class DeviceServiceImpl implements DeviceService {
         return mapToDeviceResponseDto(deviceRepository.save(device));
     }
 
+    @SuppressWarnings("null")
     @Override
     public void deleteDevice(Long deviceId) {
         deviceRepository.deleteById(deviceId);
     }
-    
+
 }
